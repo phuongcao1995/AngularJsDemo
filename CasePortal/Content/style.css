@@ -1,0 +1,110 @@
+﻿.btn-search-form {
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.checkbox input[type=checkbox] {
+    cursor: pointer;
+}
+
+.checkbox label {
+    cursor: pointer;
+}
+
+.notification-date,
+.incident-date {
+    display: block;
+    margin: 10px 0px;
+}
+
+.label-datepicker {
+    line-height: 25px;
+}
+
+.btn-group {
+    margin: 0 auto;
+}
+
+    .btn-group .reset {
+        margin-left: 10px;
+    }
+
+header i {
+    font-size: 13px;
+    color: #b8b8b9;
+    font-weight: 100 !important;
+}
+
+.data-show {
+    overflow-x: auto;
+    margin-bottom: 10px
+}
+
+.show-number {
+    font-size: 14px;
+    margin: 5px;
+}
+
+.show-length {
+    float: right;
+}
+
+.pagination {
+    float: right;
+}
+
+    .pagination li a {
+        background: #dee2e6;
+        color: white;
+        border: 1px solid white;
+        padding:6px 9px;
+        text-decoration:none;
+        margin:1px;
+    }
+
+    .pagination li a:hover,
+    .pagination li.active a{
+        background: #b8b8b9;
+    }
+
+.item {
+    margin-bottom: 15px;
+}
+
+.list .item .center {
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: block;
+}
+
+    .list .item .center:hover {
+        border: 1px solid #ccc;
+        background: #e4e4e4;
+        text-decoration: none
+    }
+
+.list .item i {
+    font-size: 70px;
+    color: #337ab7;
+    text-align: center;
+    display: block;
+    margin: 10px;
+}
+
+.list .item span {
+    text-align: center;
+    display: block;
+    padding: 5px;
+    color: #337ab7
+}
+
+.media video,
+.media audio {
+    width: 100%;
+}
+
+@media (min-width: 992px) {
+    #search-form {
+        display: block;
+    }
+}

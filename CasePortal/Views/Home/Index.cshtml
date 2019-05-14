@@ -1,0 +1,160 @@
+﻿@model CasePortal.ViewModel.LogViewModel
+@using CasePortal.Common
+<div class="container" ng-app="App">
+    <div class="row" ng-controller="HomeController">
+        <div class="col-lg-3">
+            <div class="widget">
+                <div class="d-lg-none d-md-block">
+                    <button class="btn btn-primary btn-search-form" data-toggle="collapse" data-target="#search-form">
+                        <span class="fas fa-search"></span> @Constants.ToggleSearchForm
+                    </button>
+                </div>
+                <div id="search-form" class="collapse">
+                    <form id="formSearch">
+                        <div class="form-group">
+                            <label for="search">
+                                <strong> @Constants.Search</strong>
+                            </label>
+                            <input type="search" id="search" name="search" placeholder="search" class="form-control" ng-model="keyword">
+                        </div>
+                        <strong class="">@Html.DisplayNameFor(model => model.IncidentTyleName) </strong>
+                        <div class="form-group">
+                            <div class="checkbox" ng-repeat="incidentType in listIncidentType">
+                                <label>
+                                    <input type="checkbox" name="checkbox" value="{{incidentType.Id}}" ng-click="GetListIncidentType(incidentType.Id)" ng-checked="listIncidentTypeSelected.indexOf(incidentType.Id)!==-1">
+                                    {{incidentType.Name}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            <strong class="notification-date">@Html.DisplayNameFor(model => model.NotificationDate)</strong>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="datepicker1" class="col-sm-2 control-label label-datepicker">@Constants.Start</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                            <input type="date" id="datepicker1" class="form-control" ng-model="notificationDateStart">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="datepicker2" class="col-sm-2 control-label label-datepicker">@Constants.End</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                            <input type="date" id="datepicker2" class="form-control" ng-model="notificationDateEnd">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            <strong class="incident-date">@Html.DisplayNameFor(model => model.IncidentDate) </strong>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="datepicker3" class="col-sm-2 control-label label-datepicker">@Constants.Start</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                            <input type="date" id="datepicker3" class="form-control" ng-model="incidentDateStart">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="datepicker4" class="col-sm-2 control-label label-datepicker">@Constants.End</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                            <input type="date" id="datepicker4" class="form-control" ng-model="incidentDateEnd">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="district">@Html.DisplayNameFor(model => model.DistrictName)</label>
+                            <select class="form-control" ng-model="district" ng-options="x.Name for x  in listDistrict"> <option selected value=""></option></select>
+                        </div>
+                        <div class="form-group">
+                            <div class="row btn-group">
+                                <div class="col-xs-6">
+                                    <button type="submit" class="btn btn-primary btn-block" ng-click="search()">@Constants.Search</button>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button type="button" class="btn btn-default btn-block reset" ng-click="reset()">@Constants.Reset</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-md-6">
+                    @*<p class="show-number">Showing 1 to 20 of 260 entries </p>*@
+                </div>
+                <div class="col-md-6">
+                    <div class="show-length">
+                        <label for="show-number">@Constants.Show</label>
+                        <select id="show-number" name="show-number" ng-model="itemsPerPage">
+                            @foreach (var item in Constants.ShowNumbers)
+                            {
+                                <option value="@item">@item</option>
+                            }
+                            <option value="{{listLog.length}}">@Constants.All</option>
+                        </select>
+                        <label for="district">@Constants.Entries</label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="data-show">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th ng-click="sort('Name')">
+                                    @Html.DisplayNameFor(model => model.Name)
+                                    <span ng-show="sortKey=='Name'" ng-class="{'fa fa-angle-down':reverse,'fa fa-angle-up':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('IncidentTyleName')">
+                                    @Html.DisplayNameFor(model => model.IncidentTyleName)
+                                    <span ng-show="sortKey=='IncidentTyleName'" ng-class="{'fa fa-angle-down':reverse,'fa fa-angle-up':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('NotificationDate')">
+                                    @Html.DisplayNameFor(model => model.NotificationDate)
+                                    <span ng-show="sortKey=='NotificationDate'" ng-class="{'fa fa-angle-down':reverse,'fa fa-angle-up':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('IncidentDate')">
+                                    @Html.DisplayNameFor(model => model.IncidentDate)
+                                    <span ng-show="sortKey=='IncidentDate'" ng-class="{'fa fa-angle-down':reverse,'fa fa-angle-up':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('DistrictName')">
+                                    @Html.DisplayNameFor(model => model.DistrictName)
+                                    <span ng-show="sortKey=='DistrictName'" ng-class="{'fa fa-angle-down':reverse,'fa fa-angle-up':!reverse}"></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="log in listLog |orderBy:sortKey:reverse| itemsPerPage:itemsPerPage">
+                                <td> <a class="log" href="detail.html">{{log.Name}}</a> </td>
+                                <td>{{log.IncidentTyleName}}</td>
+                                <td>{{log.NotificationDate | date : "MM/dd/yyyy h:mm a"}}</td>
+                                <td>{{log.IncidentDate | date : "MM/dd/yyyy"}}</td>
+                                <td>{{log.DistrictName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls class="pagination" max-size="5" direction-links="true" boundary-links="true">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
