@@ -12,6 +12,7 @@
     <EntitySetMapping Name="Documents">
       <EntityTypeMapping TypeName="CasePortalModel.Document">
         <MappingFragment StoreEntitySet="Document">
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Path" ColumnName="Path" />
           <ScalarProperty Name="LogId" ColumnName="LogId" />
@@ -29,6 +30,7 @@
     <EntitySetMapping Name="Logs">
       <EntityTypeMapping TypeName="CasePortalModel.Log">
         <MappingFragment StoreEntitySet="Log">
+          <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="NotificationDate" ColumnName="NotificationDate" />
@@ -41,6 +43,7 @@
     <EntitySetMapping Name="Media">
       <EntityTypeMapping TypeName="CasePortalModel.Medium">
         <MappingFragment StoreEntitySet="Media">
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Path" ColumnName="Path" />
           <ScalarProperty Name="Type" ColumnName="Type" />

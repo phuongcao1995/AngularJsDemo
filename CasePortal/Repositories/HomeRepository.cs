@@ -15,14 +15,14 @@ namespace CasePortal.Repositories
 
         public IEnumerable<Log> GetAllLog()
         {
-            return db.Logs;
+            return db.Logs.OrderByDescending(x => x.Id);
         }
 
         public IEnumerable<Log> GetLog(string keyword, DateTime? notificationDateStart, DateTime? notificationDateEnd,
             DateTime? incidentDateStart, DateTime? incidentDateEnd, int[] incidentTypeIds, int? districtId)
         {
             IQueryable<Log> query = null;
-            query = db.Logs.Where(x => true);
+            query = db.Logs.Where(x => true).OrderByDescending(x=>x.Id);
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 query = query.Where(x => x.Name.Contains(keyword));
@@ -60,6 +60,21 @@ namespace CasePortal.Repositories
                 query = query.Where(x => x.DistrictId == districtId);
             }
             return query;
+        }
+
+        public Log GetLogById(int id)
+        {
+            return db.Logs.Find(id);
+        }
+
+        public IEnumerable<Medium> GetMediasByLogId(int id)
+        {
+            return db.Media.Where(x => x.LogId == id).OrderByDescending(x => x.Id);
+        }
+
+        public IEnumerable<Document> GetDocumentsByLogId(int id)
+        {
+            return db.Documents.Where(x => x.LogId == id).OrderByDescending(x => x.Id);
         }
     }
 }

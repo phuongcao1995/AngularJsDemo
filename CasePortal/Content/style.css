@@ -39,6 +39,10 @@ header i {
     overflow-x: auto;
     margin-bottom: 10px
 }
+.no-data {
+    margin: 5px 0px 20px 0px;
+    color: #616367;
+}
 
 .show-number {
     font-size: 14px;

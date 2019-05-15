@@ -27,6 +27,7 @@ namespace CasePortal.Models
         public System.DateTime IncidentDate { get; set; }
         public int DistrictId { get; set; }
         public int IncidentTyleId { get; set; }
+        public Nullable<System.DateTime> CreateAt { get; set; }
     
         public virtual District District { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

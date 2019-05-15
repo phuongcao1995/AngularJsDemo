@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Drake\source\repos\CasePortal\CasePortal\Models\CasePortalModel.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Demo Technical\AngularJsDemo\CasePortal\Models\CasePortalModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

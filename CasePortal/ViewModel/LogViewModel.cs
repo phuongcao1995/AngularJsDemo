@@ -23,5 +23,8 @@ namespace CasePortal.ViewModel
 
         [DisplayName("Incident Types")]
         public string IncidentTyleName { get; set; }
+
+        public string CreateAt { get; set; }
+
     }
 }

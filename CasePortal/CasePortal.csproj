@@ -174,8 +174,10 @@
     <Compile Include="Repositories\HomeRepository.cs" />
     <Compile Include="Repositories\IncidentTypeRepository.cs" />
     <Compile Include="ViewModel\DistrictViewModel.cs" />
+    <Compile Include="ViewModel\DocumentViewModel.cs" />
     <Compile Include="ViewModel\IncidentTyleViewModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
+    <Compile Include="ViewModel\MediaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\lib\dirPagination.js" />
@@ -199,8 +201,10 @@
     </EntityDeploy>
     <Content Include="Models\CasePortalModel.edmx.diagram">
       <DependentUpon>CasePortalModel.edmx</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\controllers\HomeController.js" />
+    <Content Include="Scripts\controllers\LogDetailcontroller.js" />
     <Content Include="Scripts\services\DistrictService.js" />
     <Content Include="Scripts\services\HomeService.js" />
     <Content Include="Scripts\services\IncidentTypeService.js" />
@@ -220,7 +224,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\District\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -228,6 +231,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
+    <Content Include="Views\Home\_PartialSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -12,6 +12,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Path" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="LogId" Type="int" Nullable="false" />
   </EntityType>
@@ -32,12 +33,14 @@
     <Property Name="IncidentDate" Type="datetime" Nullable="false" />
     <Property Name="DistrictId" Type="int" Nullable="false" />
     <Property Name="IncidentTyleId" Type="int" Nullable="false" />
+    <Property Name="CreateAt" Type="datetime" />
   </EntityType>
   <EntityType Name="Media">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Path" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="LogId" Type="int" Nullable="false" />

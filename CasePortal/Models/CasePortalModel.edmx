@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CasePortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CasePortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="District">
           <Key>
             <PropertyRef Name="Id" />
@@ -17,6 +17,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Path" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="LogId" Type="int" Nullable="false" />
         </EntityType>
@@ -37,12 +38,14 @@
           <Property Name="IncidentDate" Type="datetime" Nullable="false" />
           <Property Name="DistrictId" Type="int" Nullable="false" />
           <Property Name="IncidentTyleId" Type="int" Nullable="false" />
+          <Property Name="CreateAt" Type="datetime" />
         </EntityType>
         <EntityType Name="Media">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Path" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="LogId" Type="int" Nullable="false" />
@@ -118,8 +121,7 @@
             <End Role="Media" EntitySet="Media" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CasePortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -139,6 +141,7 @@
           <Property Name="Path" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LogId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Log" Relationship="Self.FK__Document__LogId__1FCDBCEB" FromRole="Document" ToRole="Log" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="IncidentTyle">
           <Key>
@@ -162,6 +165,7 @@
           <NavigationProperty Name="Documents" Relationship="Self.FK__Document__LogId__1FCDBCEB" FromRole="Log" ToRole="Document" />
           <NavigationProperty Name="IncidentTyle" Relationship="Self.FK__Log__IncidentTyl__1A14E395" FromRole="Log" ToRole="IncidentTyle" />
           <NavigationProperty Name="Media" Relationship="Self.FK__Media__LogId__1CF15040" FromRole="Log" ToRole="Media" />
+          <Property Name="CreateAt" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Medium">
           <Key>
@@ -172,6 +176,7 @@
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="LogId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Log" Relationship="Self.FK__Media__LogId__1CF15040" FromRole="Media" ToRole="Log" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Log__IncidentTyl__1920BF5C">
           <End Role="District" Type="Self.District" Multiplicity="1" />
@@ -261,6 +266,7 @@
           <EntitySetMapping Name="Documents">
             <EntityTypeMapping TypeName="CasePortalModel.Document">
               <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Path" ColumnName="Path" />
                 <ScalarProperty Name="LogId" ColumnName="LogId" />
@@ -278,6 +284,7 @@
           <EntitySetMapping Name="Logs">
             <EntityTypeMapping TypeName="CasePortalModel.Log">
               <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="NotificationDate" ColumnName="NotificationDate" />
@@ -290,6 +297,7 @@
           <EntitySetMapping Name="Media">
             <EntityTypeMapping TypeName="CasePortalModel.Medium">
               <MappingFragment StoreEntitySet="Media">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Path" ColumnName="Path" />
                 <ScalarProperty Name="Type" ColumnName="Type" />

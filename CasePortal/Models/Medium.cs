@@ -18,6 +18,7 @@ namespace CasePortal.Models
         public string Path { get; set; }
         public int Type { get; set; }
         public int LogId { get; set; }
+        public string Name { get; set; }
     
         public virtual Log Log { get; set; }
     }

@@ -1,260 +1,71 @@
-﻿
+﻿@model CasePortal.ViewModel.LogViewModel
+@using CasePortal.Common
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="container">
+<div class="container" ng-controller="LogDetailController">
+    <input type="hidden" id="logId" value="@ViewBag.LogId " />
     <div class="row">
-        <div class="col-lg-3">
-            <div class="widget">
-                <div class="d-lg-none d-md-block">
-                    <button class="btn btn-primary btn-search-form" data-toggle="collapse"
-                            data-target="#search-form">
-                        <span class="fas fa-search"></span> Toggle Search Form
-                    </button>
-                </div>
-                <div id="search-form" class="collapse">
-                    <form action="" method="get">
-                        <div class="form-group">
-                            <label for="search">
-                                <strong>Search</strong>
-                            </label>
-                            <input type="search" name="search" placeholder="search" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="checkbox" value="">
-                                    Incident in Police Custody
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="checkbox" value="">
-                                    Incident in Police Custody
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="checkbox" value="">
-                                    Incident in Police Custody
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="checkbox" value="">
-                                    Incident in Police Custody
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-horizontal">
-                            <strong class="notification-date">IPRA/COPA Notification Date </strong>
-                            <div class="form-group">
-                                <div class="row">
-                                    <label for="datepicker1"
-                                           class="col-sm-2 control-label label-datepicker">Start</label>
-                                    <div class="col-sm-10">
-                                        <div class="input-group">
-                                            <input type="date" name="datepicker1" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <label for="datepicker1"
-                                           class="col-sm-2 control-label label-datepicker">End</label>
-                                    <div class="col-sm-10">
-                                        <div class="input-group">
-                                            <input type="date" name="datepicker1" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-horizontal">
-                            <strong class="incident-date">Incident Date </strong>
-                            <div class="form-group">
-                                <div class="row">
-                                    <label for="datepicker1"
-                                           class="col-sm-2 control-label label-datepicker">Start</label>
-                                    <div class="col-sm-10">
-                                        <div class="input-group">
-                                            <input type="date" name="datepicker1 label-datepicker"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <label for="datepicker1"
-                                           class="col-sm-2 control-label label-datepicker">End</label>
-                                    <div class="col-sm-10">
-                                        <div class="input-group">
-                                            <input type="date" name="datepicker1" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="district">District of Occurrence</label>
-                            <select id="district" name="district" class="form-control">
-                                <option>Any</option>
-                                <option value="01">01</option>
-                                <option value="02">02</option>
-                                <option value="03">03</option>
-                                <option value="04">04</option>
-                                <option value="05">05</option>
-                                <option value="06">06</option>
-                                <option value="07">07</option>
-                                <option value="08">08</option>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="row btn-group">
-                                <div class="col-xs-6">
-                                    <button type="submit" class="btn btn-primary btn-block">Search</button>
-                                </div>
-                                <div class="col-xs-6">
-                                    <button type="button" class="btn btn-default btn-block reset">Reset</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-
-        </div>
+        @Html.Partial("~/Views/Home/_PartialSearch.cshtml")
         <div class="col-lg-9">
             <header>
                 <h1>
-                    LOG# 1086544
+                    {{logDetail.Name}}
                 </h1>
-                <i class="fa fa-calendar-alt"> Posted June 3, 2016</i>
+                <i class="fa fa-calendar-alt"> @Constants.Posted {{logDetail.CreateAt}}</i>
             </header>
             <main>
                 <div class="data-show">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Log#</th>
-                                <th>Incident Types </th>
-                                <th>IPRA/COPA Notification Date</th>
-                                <th>Incident Date & Time </th>
-                                <th>District of Occurrence </th>
+                                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                                <th>@Html.DisplayNameFor(model => model.IncidentTyleName) </th>
+                                <th>@Html.DisplayNameFor(model => model.NotificationDate)</th>
+                                <th>@Html.DisplayNameFor(model => model.IncidentDate) </th>
+                                <th>@Html.DisplayNameFor(model => model.DistrictName) </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td> 1086544</td>
-                                <td>Firearm Discharge</td>
-                                <td>08-30-2017</td>
-                                <td>08-29-2017 10:00 pm</td>
-                                <td>Other</td>
+                                <td> {{logDetail.Name}}</td>
+                                <td>{{logDetail.IncidentTyleName}}</td>
+                                <td>{{logDetail.NotificationDate}}</td>
+                                <td>{{logDetail.IncidentDate}}</td>
+                                <td>{{logDetail.DistrictName}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <section class="list list-media">
-                    <h2>Media</h2>
+                    <h2>@Constants.Media</h2>
                     <div class="row">
-                        <div class="col-sm-4 col-6 item item-media">
-                            <a class="center" data-toggle="modal" data-target="#video">
-                                <i class="fas fa-video-slash icon-media"></i>
-                                <span>Log #2019-0000233 Body Worn Camera 1 </span>
+                        <div class="col-sm-4 col-6 item item-media" ng-repeat="media in listMedia" ng-show="listMedia.length>0">
+                            <a class="center" data-toggle="modal" data-target="{{media.Type==1?'#video':'#audio'}}" ng-click="PlayMedia(media)">
+                                <i class="fas icon-media" ng-class="media.Type==1? 'fa-video-slash' : 'fa-volume-up'"></i>
+                                <span>{{media.Name}} </span>
                             </a>
                         </div>
-                        <div class="col-sm-4 col-6 item item-media">
-                            <a class="center" data-toggle="modal" data-target="#audio">
-                                <i class="fas fa-volume-up icon-media"></i>
-                                <span>Log # 2019-0000233 Shotspotter 4 </span>
-                            </a>
-                        </div>
-                        <div class="col-sm-4 col-6 item item-media">
-                            <a class="center" data-toggle="modal" data-target="#video">
-                                <i class="fas fa-video-slash icon-media"></i>
-                                <span>Log #2019-0000233 Body Worn Camera 1 </span>
-                            </a>
-                        </div>
-                        <div class="col-sm-4 col-6 item item-media">
-                            <a class="center" data-toggle="modal" data-target="#audio">
-                                <i class="fas fa-volume-up icon-media"> </i>
-                                <span>Log # 2019-0000233 Shotspotter 4</span>
-                            </a>
-                        </div>
-                        <div class="col-sm-4 col-6 item item-media">
-                            <a class="center" data-toggle="modal" data-target="#video">
-                                <i class="fas fa-video-slash icon-media"></i>
-                                <span>Log #2019-0000233 Body Worn Camera 1 </span>
-                            </a>
-                        </div>
-                        <div class="col-sm-4 col-6 item item-media">
-                            <a class="center" data-toggle="modal" data-target="#audio">
-                                <i class="fas fa-volume-up icon-media"></i>
-                                <span>Log # 2019-0000233 Shotspotter 4 </span>
-                            </a>
-                        </div>
-                        <div class="col-sm-4 col-6 item item-media">
-                            <a class="center" data-toggle="modal" data-target="#video">
-                                <i class="fas fa-video-slash icon-media"></i>
-                                <span>Log #2019-0000233 Body Worn Camera 1 </span>
-                            </a>
-                        </div>
-                        <div class="col-sm-4 col-6 item item-media">
-                            <a class="center" data-toggle="modal" data-target="#audio">
-                                <i class="fas fa-volume-up icon-media"> </i>
-                                <span>Log # 2019-0000233 Shotspotter 4</span>
-                            </a>
+                        <div class="col-sm-4 col-6" ng-show="listMedia.length==0">
+                            <h6 class="no-data">@Constants.MessageNoData</h6>
                         </div>
                     </div>
                 </section>
 
                 <section class="list list-document">
-                    <h2>Document</h2>
+                    <h2>@Constants.Document</h2>
                     <div class="row">
-                        <div class="col-sm-4 col-6 item item-document">
+                        <div class="col-sm-4 col-6 item item-document" ng-repeat="document in listDocument" ng-show="listDocument.length>0">
                             <a class="center"
-                               href="https://www.chicagocopa.org/wp-content/uploads/2019/05/Arrest-Report-of-Donell-Davis._REDACTED.pdf">
+                               href="{{document.Path}}">
                                 <i class="fas fa-file-pdf icon-document"></i>
-                                <span>Log #2019-0000233 Body Worn Camera 1 </span>
+                                <span>{{document.Name}} </span>
                             </a>
                         </div>
-                        <div class="col-sm-4 col-6 item item-document"
-                             href="https://www.chicagocopa.org/wp-content/uploads/2019/05/Arrest-Report-of-Donell-Davis._REDACTED.pdf">
-                            <a class="center"
-                               href="https://www.chicagocopa.org/wp-content/uploads/2019/05/Arrest-Report-of-Donell-Davis._REDACTED.pdf">
-
-                                <i class="fas fa-file-pdf icon-document"></i>
-                                <span>Log # 2019-0000233 Shotspotter 4 </span>
-                            </a>
-                        </div>
-                        <div class="col-sm-4 col-6 item item-document"
-                             href="https://www.chicagocopa.org/wp-content/uploads/2019/05/Arrest-Report-of-Donell-Davis._REDACTED.pdf">
-                            <a class="center"
-                               href="https://www.chicagocopa.org/wp-content/uploads/2019/05/Arrest-Report-of-Donell-Davis._REDACTED.pdf">
-
-                                <i class="fas fa-file-pdf icon-document"></i>
-                                <span>Log #2019-0000233 Body Worn Camera 1 </span>
-                            </a>
-                        </div>
-                        <div class="col-sm-4 col-6 item item-document"
-                             href="https://www.chicagocopa.org/wp-content/uploads/2019/05/Arrest-Report-of-Donell-Davis._REDACTED.pdf">
-                            <a class="center"
-                               href="https://www.chicagocopa.org/wp-content/uploads/2019/05/Arrest-Report-of-Donell-Davis._REDACTED.pdf">
-
-                                <i class="fas fa-file-pdf icon-document"></i>
-                                <span>Log #2019-0000233 Body Worn Camera 1 </span>
-                            </a>
+                        <div class="col-sm-4 col-6" ng-show="listDocument.length==0">
+                            <h6 class="no-data">@Constants.MessageNoData</h6>
                         </div>
                     </div>
                 </section>
@@ -265,18 +76,18 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Log # 2019-0000294 Body Worn Camera 1</h4>
+                    <h4 class="modal-title">{{media.Name}}</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="media">
-                        <video controls>
-                            <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+                        <video controls id="myVideo">
+                            <source src="#" type="video/mp4">
                         </video>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@Constants.Close</button>
                 </div>
             </div>
         </div>
@@ -286,21 +97,25 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Log # 2019-0000294 Body Worn Camera 1</h4>
+                    <h4 class="modal-title">{{media.Name}}</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="media">
-                        <audio controls>
-                            <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
+                        <audio controls id="myAudio">
+                            <source src="#" type="audio/ogg">
                         </audio>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@Constants.Close</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@section ControllerJs
+    {
+    <script src="~/Scripts/controllers/LogDetailcontroller.js"></script>
+}
 
