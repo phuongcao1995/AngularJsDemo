@@ -1,10 +1,10 @@
 ﻿(function () {
     var app = angular.module('App', ['angularUtils.directives.dirPagination']);
-    app.controller('HomeController', ['$scope', 'homeService', 'incidentTypeService', 'districtService', function ($scope, homeService, incidentTypeService, districtService) {
+    app.controller('HomeController', ['$scope', '$rootScope', 'commonService', 'homeService', 'incidentTypeService', 'districtService', function ($scope, $rootScope, commonService, homeService, incidentTypeService, districtService) {
         init();
         function init() {
+            commonService.StartLoading();
             $scope.listIncidentTypeSelected = [];
-
             incidentTypeService.GetAllIncidentType().then(ListIncidentType);
             districtService.GetAllDistrict().then(ListDistrict);
             $scope.itemsPerPage = $("#show-number option:first").val();
@@ -20,6 +20,7 @@
                 $scope.reverse = !$scope.reverse; //if true make it false and vice versa
             };
             if (localStorage.getItem("dataSearch") !== null) {
+                
                 var dataSearch = JSON.parse(localStorage.getItem("dataSearch"));
                 $scope.keyword = dataSearch.keyword;
                 if (dataSearch.notificationDateStart != null) {
@@ -34,14 +35,14 @@
                 if (dataSearch.notificationDateStart != null) {
                     $scope.incidentDateEnd = new Date(dataSearch.incidentDateEnd);
                 }
-                var districtId = dataSearch.district != null ? dataSearch.district.Id : null;           
+                var districtId = dataSearch.district != null ? dataSearch.district.Id : null;
                 $scope.listIncidentTypeSelected = dataSearch.listIncidentTypeSelected;
                 $scope.district = dataSearch.district;
                 homeService.GetLog($scope.keyword, $scope.notificationDateStart, $scope.notificationDateEnd, $scope.incidentDateStart, $scope.incidentDateEnd,
-                    $scope.listIncidentTypeSelected, districtId).then(ListLog);
+                    $scope.listIncidentTypeSelected, districtId).then(ListLog).finally(commonService.EndLoading);
                 localStorage.removeItem("dataSearch");
             } else {
-                homeService.GetAllLog().then(ListLog);
+                homeService.GetAllLog().then(ListLog).finally(commonService.EndLoading);
 
             }
         }
@@ -68,17 +69,20 @@
         };
 
         $scope.search = function () {
+            commonService.StartLoading();
             var keyword = $scope.keyword;
             var notificationDateStart = $scope.notificationDateStart;
             var notificationDateEnd = $scope.notificationDateEnd;
             var incidentDateStart = $scope.incidentDateStart;
             var incidentDateEnd = $scope.incidentDateEnd;
             var listIncidentTypeSelected = $scope.listIncidentTypeSelected;
-            var districtId = $scope.district != null ? $scope.district.Id : null;
-            homeService.GetLog(keyword, notificationDateStart, notificationDateEnd, incidentDateStart, incidentDateEnd, listIncidentTypeSelected, districtId).then(ListLog);
+            var districtId = $scope.district != null ? $scope.district.Id : null;          
+            homeService.GetLog(keyword, notificationDateStart, notificationDateEnd, incidentDateStart, incidentDateEnd, listIncidentTypeSelected, districtId).then(ListLog).finally(commonService.EndLoading);
+
         };
 
         $scope.reset = function () {
+            commonService.StartLoading();
             $scope.keyword = null;
             $scope.notificationDateStart = "";
             $scope.notificationDateEnd = "";
@@ -86,7 +90,7 @@
             $scope.incidentDateEnd = "";
             $scope.listIncidentTypeSelected = [];
             $scope.district = null;
-            homeService.GetAllLog().then(ListLog);
+            homeService.GetAllLog().then(ListLog).finally(commonService.EndLoading);
         };
 
     }]);

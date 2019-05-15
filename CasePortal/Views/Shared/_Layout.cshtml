@@ -14,7 +14,9 @@
 </head>
 
 <body>
+
     <div class="page" ng-app="App">
+        <div ng-class="loading==true?'loader' :' '"></div>
         @RenderBody()
     </div>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
@@ -22,6 +24,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="~/Content/lib/dirPagination.js"></script>
     @RenderSection("ControllerJs", required: false)
+    <script src="~/Scripts/commonService.js"></script>
     <script src="~/Scripts/services/HomeService.js"></script>
     <script src="~/Scripts/services/IncidentTypeService.js"></script>
     <script src="~/Scripts/services/DistrictService.js"></script>

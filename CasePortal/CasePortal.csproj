@@ -203,6 +203,7 @@
       <DependentUpon>CasePortalModel.edmx</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\commonService.js" />
     <Content Include="Scripts\controllers\HomeController.js" />
     <Content Include="Scripts\controllers\LogDetailcontroller.js" />
     <Content Include="Scripts\services\DistrictService.js" />
@@ -232,6 +233,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
     <Content Include="Views\Home\_PartialSearch.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

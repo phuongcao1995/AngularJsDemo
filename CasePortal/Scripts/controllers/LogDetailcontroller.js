@@ -1,15 +1,16 @@
 ﻿(function () {
     var app = angular.module('App', ['angularUtils.directives.dirPagination']);
-    app.controller('LogDetailController', ['$scope', 'homeService', 'incidentTypeService', 'districtService', function ($scope, homeService, incidentTypeService, districtService) {
+    app.controller('LogDetailController', ['$scope', 'commonService', 'homeService', 'incidentTypeService', 'districtService', function ($scope, commonService,homeService, incidentTypeService, districtService) {
         init();
         function init() {
+            commonService.StartLoading();
             var logId = document.getElementById("logId").value;
             homeService.GetLogById(logId).then(LogDetail);
             homeService.GetMediasByLogId(logId).then(ListMedia);
             homeService.GetDocumentsByLogId(logId).then(ListDocument);          
             $scope.listIncidentTypeSelected = [];
             incidentTypeService.GetAllIncidentType().then(ListIncidentType);
-            districtService.GetAllDistrict().then(ListDistrict);
+            districtService.GetAllDistrict().then(ListDistrict).finally(commonService.EndLoading);
 
         }
 
@@ -50,7 +51,8 @@
             }
         };
 
-        $scope.search = function () {         
+        $scope.search = function () {  
+            commonService.StartLoading();
             var keyword = $scope.keyword;
             var notificationDateStart = $scope.notificationDateStart;
             var notificationDateEnd = $scope.notificationDateEnd;
@@ -58,7 +60,6 @@
             var incidentDateEnd = $scope.incidentDateEnd;
             var listIncidentTypeSelected = $scope.listIncidentTypeSelected;
             var district = $scope.district; 
-            var districtIndex = document.getElementById("district").selectedIndex;
             var data = { keyword, notificationDateStart, notificationDateEnd, incidentDateStart, incidentDateEnd, listIncidentTypeSelected, district };
             localStorage.setItem("dataSearch", JSON.stringify(data));
             window.location.href = "/Home/index";
