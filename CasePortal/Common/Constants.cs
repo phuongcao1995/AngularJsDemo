@@ -14,7 +14,7 @@
         public const string Close = "Close";
         public const string Media = "Media";
         public const string Document = "Document";
-        public static readonly int[] ShowNumbers = { 5, 10, 20, 50 };
+        public static readonly int[] ShowNumbers = {10, 20, 50 ,100};
         public const string MessageNoData = "No data to show";
         
     }

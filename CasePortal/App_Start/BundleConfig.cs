@@ -19,12 +19,19 @@ namespace CasePortal
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+            bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
+                        "~/Scripts/controllers/HomeController.js",
+                        "~/Scripts/controllers/LogDetailcontroller.js",
+                        "~/Scripts/commonService.js",
+                        "~/Scripts/services/HomeService.js",
+                        "~/Scripts/services/IncidentTypeService.js",
+                        "~/Scripts/services/DistrictService.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/style").Include(
+               "~/Content/style.css"));
+
+            BundleTable.EnableOptimizations = false;
         }
     }
 }

@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="data-show" ng-show="listLog.length>0">
+                <div class="data-show">
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -52,7 +52,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr dir-paginate="log in listLog |orderBy:sortKey:reverse| itemsPerPage:itemsPerPage">
+                            <tr dir-paginate="log in listLog |orderBy:sortKey:reverse| itemsPerPage:itemsPerPage" ng-show="listLog.length>0">
                                 <td> <a class="log" href="/Home/detail/{{log.Id}}">{{log.Name}}</a> </td>
                                 <td>{{log.IncidentTyleName}}</td>
                                 <td>{{log.NotificationDate | date : "MM/dd/yyyy h:mm a"}}</td>
@@ -70,7 +70,3 @@
         </div>
     </div>
 </div>
-@section ControllerJs
-    {
-    <script src="~/Scripts/controllers/HomeController.js"></script>
-}

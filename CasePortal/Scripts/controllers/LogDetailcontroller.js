@@ -1,5 +1,5 @@
 ﻿(function () {
-    var app = angular.module('App', ['angularUtils.directives.dirPagination']);
+    var app = angular.module('App');
     app.controller('LogDetailController', ['$scope', 'commonService', 'homeService', 'incidentTypeService', 'districtService', function ($scope, commonService,homeService, incidentTypeService, districtService) {
         init();
         function init() {
