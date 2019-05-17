@@ -53,7 +53,7 @@
                         <tbody>
                             <tr dir-paginate="log in listLog |orderBy:sortKey:reverse| itemsPerPage:itemsPerPage" ng-show="listLog.length>0">
                                 <td> <a class="log" href="/Home/detail/{{log.Id}}">{{log.Name}}</a> </td>
-                                <td>{{log.IncidentTyleName}}</td>
+                                <td>{{log.IncidentTypeName}}</td>
                                 <td>{{log.NotificationDate | date : "MM/dd/yyyy h:mm a"}}</td>
                                 <td>{{log.IncidentDate | date : "MM/dd/yyyy"}}</td>
                                 <td>{{log.DistrictName}}</td>

@@ -65,12 +65,17 @@ header i {
         text-decoration: none;
         margin: 1px;
     }
-
         .pagination li a:hover,
         .pagination li.active a {
             background: #a0a0a0;
             color:#fff;
         }
+    .pagination li.disabled a {
+        background: #dddddd;
+        color: #000000;
+        border: 1px solid white;
+        cursor: not-allowed;
+    }
 
 .item {
     margin-bottom: 15px;

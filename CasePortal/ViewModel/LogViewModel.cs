@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using CasePortal.Models;
+using System.ComponentModel;
 
 namespace CasePortal.ViewModel
 {
@@ -25,6 +26,5 @@ namespace CasePortal.ViewModel
         public string IncidentTypeName { get; set; }
 
         public string CreateAt { get; set; }
-
     }
 }

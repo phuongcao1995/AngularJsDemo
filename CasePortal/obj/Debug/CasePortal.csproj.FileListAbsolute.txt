@@ -246,4 +246,3 @@ C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\obj\Debug
 C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\obj\Debug\CasePortal.csproj.CopyComplete
 C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\obj\Debug\CasePortal.dll
 C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\obj\Debug\CasePortal.pdb
-D:\Demo Technical\AngularJsDemo\CasePortal\obj\Debug\CasePortal.csprojAssemblyReference.cache

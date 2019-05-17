@@ -83,8 +83,6 @@ namespace CasePortal.Repositories
             try
             {
                 log.CreateAt = DateTime.Now;
-                db.Entry(log).Reference(c => c.District).CurrentValue = null;
-                db.Entry(log).Reference(c => c.IncidentType).CurrentValue = null;
                 db.Logs.Add(log);
                 db.SaveChanges();
                 return true;
@@ -94,7 +92,36 @@ namespace CasePortal.Repositories
                 return false;
                 throw;
             }
+        }
 
+        public bool UpdateLog(Log log)
+        {
+            try
+            {
+                db.Entry(log).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+                throw;
+            }
+        }
+
+        public bool DeleteLog(Log log)
+        {
+            try
+            {
+                db.Entry(log).State = System.Data.Entity.EntityState.Deleted;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+                throw;
+            }
         }
     }
 }
