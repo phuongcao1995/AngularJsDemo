@@ -7,13 +7,13 @@
       <Diagram DiagramId="4a71a481ac1d48d28f6f27298ac84e10" Name="Diagram1">
         <EntityTypeShape EntityType="CasePortalModel.District" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CasePortalModel.Document" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CasePortalModel.IncidentTyle" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CasePortalModel.Log" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CasePortalModel.Medium" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
-        <AssociationConnector Association="CasePortalModel.FK__Log__IncidentTyl__1920BF5C" ManuallyRouted="false" />
-        <AssociationConnector Association="CasePortalModel.FK__Document__LogId__1FCDBCEB" ManuallyRouted="false" />
-        <AssociationConnector Association="CasePortalModel.FK__Log__IncidentTyl__1A14E395" ManuallyRouted="false" />
-        <AssociationConnector Association="CasePortalModel.FK__Media__LogId__1CF15040" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CasePortalModel.IncidentType" Width="1.5" PointX="2.625" PointY="1.25" />
+        <EntityTypeShape EntityType="CasePortalModel.Log" Width="1.5" PointX="7.875" PointY="1.75" />
+        <AssociationConnector Association="CasePortalModel.FK__Log__IncidentTyl__1920BF5C" />
+        <AssociationConnector Association="CasePortalModel.FK__Document__LogId__1FCDBCEB" />
+        <AssociationConnector Association="CasePortalModel.FK__Log__IncidentTyl__1A14E395" />
+        <AssociationConnector Association="CasePortalModel.FK__Media__LogId__1CF15040" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

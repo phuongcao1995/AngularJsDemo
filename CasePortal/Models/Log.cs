@@ -26,13 +26,13 @@ namespace CasePortal.Models
         public System.DateTime NotificationDate { get; set; }
         public System.DateTime IncidentDate { get; set; }
         public int DistrictId { get; set; }
-        public int IncidentTyleId { get; set; }
+        public int IncidentTypeId { get; set; }
         public Nullable<System.DateTime> CreateAt { get; set; }
     
         public virtual District District { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Document> Documents { get; set; }
-        public virtual IncidentTyle IncidentTyle { get; set; }
+        public virtual IncidentType IncidentType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Medium> Media { get; set; }
     }

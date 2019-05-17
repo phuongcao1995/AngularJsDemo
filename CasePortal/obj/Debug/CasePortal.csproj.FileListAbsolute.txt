@@ -163,7 +163,6 @@ D:\Demo Technical\AngularJsDemo\CasePortal\obj\Debug\CasePortal.csproj.CoreCompi
 D:\Demo Technical\AngularJsDemo\CasePortal\obj\Debug\CasePortal.csproj.CopyComplete
 D:\Demo Technical\AngularJsDemo\CasePortal\obj\Debug\CasePortal.dll
 D:\Demo Technical\AngularJsDemo\CasePortal\obj\Debug\CasePortal.pdb
-D:\Demo Technical\AngularJsDemo\CasePortal\obj\Debug\CasePortal.csprojAssemblyReference.cache
 C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\bin\CasePortal.dll.config
 C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\bin\CasePortal.dll
 C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\bin\CasePortal.pdb
@@ -247,3 +246,4 @@ C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\obj\Debug
 C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\obj\Debug\CasePortal.csproj.CopyComplete
 C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\obj\Debug\CasePortal.dll
 C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\obj\Debug\CasePortal.pdb
+D:\Demo Technical\AngularJsDemo\CasePortal\obj\Debug\CasePortal.csprojAssemblyReference.cache

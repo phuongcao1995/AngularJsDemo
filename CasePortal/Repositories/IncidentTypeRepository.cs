@@ -1,5 +1,6 @@
 ﻿using CasePortal.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CasePortal.Repositories
 {
@@ -11,9 +12,9 @@ namespace CasePortal.Repositories
 
         }
 
-        public IEnumerable<IncidentTyle> GetAllIncidentTyle()
+        public IEnumerable<IncidentType> GetAllIncidentTyle()
         {
-            return db.IncidentTyles;
+            return db.IncidentTypes.OrderBy(x => x.Name);
         }
     }
 }

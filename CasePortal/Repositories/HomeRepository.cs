@@ -1,4 +1,5 @@
-﻿using CasePortal.Models;
+﻿using AutoMapper;
+using CasePortal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace CasePortal.Repositories
             DateTime? incidentDateStart, DateTime? incidentDateEnd, int[] incidentTypeIds, int? districtId)
         {
             IQueryable<Log> query = null;
-            query = db.Logs.Where(x => true).OrderByDescending(x=>x.Id);
+            query = db.Logs.Where(x => true).OrderByDescending(x => x.Id);
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 query = query.Where(x => x.Name.Contains(keyword));
@@ -53,7 +54,7 @@ namespace CasePortal.Repositories
             }
             if (incidentTypeIds != null)
             {
-                query = query.Where(x => incidentTypeIds.Contains(x.IncidentTyleId));
+                query = query.Where(x => incidentTypeIds.Contains(x.IncidentTypeId));
             }
             if (districtId != null)
             {
@@ -75,6 +76,25 @@ namespace CasePortal.Repositories
         public IEnumerable<Document> GetDocumentsByLogId(int id)
         {
             return db.Documents.Where(x => x.LogId == id).OrderByDescending(x => x.Id);
+        }
+
+        public bool AddLog(Log log)
+        {
+            try
+            {
+                log.CreateAt = DateTime.Now;
+                db.Entry(log).Reference(c => c.District).CurrentValue = null;
+                db.Entry(log).Reference(c => c.IncidentType).CurrentValue = null;
+                db.Logs.Add(log);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+                throw;
+            }
+
         }
     }
 }

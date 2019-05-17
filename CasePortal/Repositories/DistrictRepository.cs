@@ -1,5 +1,6 @@
 ﻿using CasePortal.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CasePortal.Repositories
 {
@@ -13,7 +14,7 @@ namespace CasePortal.Repositories
 
         public IEnumerable<District> GetAllDistrict()
         {
-            return db.Districts;
+            return db.Districts.OrderBy(x=>x.Name);
         }
     }
 }

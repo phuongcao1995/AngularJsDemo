@@ -19,10 +19,10 @@ namespace CasePortal.ViewModel
 
         [DisplayName("District of Occurrence")]
         public string DistrictName { get; set; }
-        public int IncidentTyleId { get; set; }
+        public int IncidentTypeId { get; set; }
 
         [DisplayName("Incident Types")]
-        public string IncidentTyleName { get; set; }
+        public string IncidentTypeName { get; set; }
 
         public string CreateAt { get; set; }
 

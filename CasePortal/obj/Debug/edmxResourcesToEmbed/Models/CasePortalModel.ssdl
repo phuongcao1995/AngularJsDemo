@@ -16,7 +16,7 @@
     <Property Name="Path" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="LogId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="IncidentTyle">
+  <EntityType Name="IncidentType">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -32,7 +32,7 @@
     <Property Name="NotificationDate" Type="datetime" Nullable="false" />
     <Property Name="IncidentDate" Type="datetime" Nullable="false" />
     <Property Name="DistrictId" Type="int" Nullable="false" />
-    <Property Name="IncidentTyleId" Type="int" Nullable="false" />
+    <Property Name="IncidentTypeId" Type="int" Nullable="false" />
     <Property Name="CreateAt" Type="datetime" />
   </EntityType>
   <EntityType Name="Media">
@@ -70,14 +70,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Log__IncidentTyl__1A14E395">
-    <End Role="IncidentTyle" Type="Self.IncidentTyle" Multiplicity="1" />
+    <End Role="IncidentType" Type="Self.IncidentType" Multiplicity="1" />
     <End Role="Log" Type="Self.Log" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="IncidentTyle">
+      <Principal Role="IncidentType">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Log">
-        <PropertyRef Name="IncidentTyleId" />
+        <PropertyRef Name="IncidentTypeId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -96,7 +96,7 @@
   <EntityContainer Name="CasePortalModelStoreContainer">
     <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="IncidentTyle" EntityType="Self.IncidentTyle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IncidentType" EntityType="Self.IncidentType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Media" EntityType="Self.Media" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Document__LogId__1FCDBCEB" Association="Self.FK__Document__LogId__1FCDBCEB">
@@ -108,7 +108,7 @@
       <End Role="Log" EntitySet="Log" />
     </AssociationSet>
     <AssociationSet Name="FK__Log__IncidentTyl__1A14E395" Association="Self.FK__Log__IncidentTyl__1A14E395">
-      <End Role="IncidentTyle" EntitySet="IncidentTyle" />
+      <End Role="IncidentType" EntitySet="IncidentType" />
       <End Role="Log" EntitySet="Log" />
     </AssociationSet>
     <AssociationSet Name="FK__Media__LogId__1CF15040" Association="Self.FK__Media__LogId__1CF15040">

@@ -58,18 +58,19 @@ header i {
 }
 
     .pagination li a {
-        background: #dee2e6;
-        color: white;
+        background: #dddddd;
+        color: #000000;
         border: 1px solid white;
-        padding:6px 9px;
-        text-decoration:none;
-        margin:1px;
+        padding: 6px 9px;
+        text-decoration: none;
+        margin: 1px;
     }
 
-    .pagination li a:hover,
-    .pagination li.active a{
-        background: #b8b8b9;
-    }
+        .pagination li a:hover,
+        .pagination li.active a {
+            background: #a0a0a0;
+            color:#fff;
+        }
 
 .item {
     margin-bottom: 15px;

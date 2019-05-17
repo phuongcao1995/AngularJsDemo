@@ -10,21 +10,12 @@ namespace CasePortal.Controllers
 {
     public class HomeController : Controller
     {
-        HomeRepository homeRepository = new HomeRepository();
+        private readonly HomeRepository homeRepository = new HomeRepository();
 
         public ActionResult Index()
         {
             return View();
         }
-
-        //[HttpGet]
-        //public ActionResult Index(string keyword, DateTime? notificationDateStart, DateTime? notificationDateEnd,
-        //   DateTime? incidentDateStart, DateTime? incidentDateEnd, int[] incidentTypeIds, int? districtId)
-        //{
-        //    var list = homeRepository.GetLog(keyword, notificationDateStart, notificationDateEnd,
-        //     incidentDateStart, incidentDateEnd, incidentTypeIds, districtId);
-        //    return Json(Mapper.Map<IEnumerable<LogViewModel>>(list).ToList(), JsonRequestBehavior.AllowGet);
-        //}
 
         [HttpGet]
         public JsonResult GetAllLog()
@@ -44,8 +35,8 @@ namespace CasePortal.Controllers
 
         public ActionResult Detail(int? id)
         {
-            
-            if (id == null || id == 0|| homeRepository.GetLogById(id.Value) == null)
+
+            if (id == null || id == 0 || homeRepository.GetLogById(id.Value) == null)
             {
                 return HttpNotFound();
             }
@@ -73,7 +64,5 @@ namespace CasePortal.Controllers
             var documents = Mapper.Map<IEnumerable<DocumentViewModel>>(homeRepository.GetDocumentsByLogId(id)).ToList();
             return Json(documents, JsonRequestBehavior.AllowGet);
         }
-        
-
     }
 }

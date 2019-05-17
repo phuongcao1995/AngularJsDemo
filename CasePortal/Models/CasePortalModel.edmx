@@ -21,7 +21,7 @@
           <Property Name="Path" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="LogId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="IncidentTyle">
+        <EntityType Name="IncidentType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -37,7 +37,7 @@
           <Property Name="NotificationDate" Type="datetime" Nullable="false" />
           <Property Name="IncidentDate" Type="datetime" Nullable="false" />
           <Property Name="DistrictId" Type="int" Nullable="false" />
-          <Property Name="IncidentTyleId" Type="int" Nullable="false" />
+          <Property Name="IncidentTypeId" Type="int" Nullable="false" />
           <Property Name="CreateAt" Type="datetime" />
         </EntityType>
         <EntityType Name="Media">
@@ -75,14 +75,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Log__IncidentTyl__1A14E395">
-          <End Role="IncidentTyle" Type="Self.IncidentTyle" Multiplicity="1" />
+          <End Role="IncidentType" Type="Self.IncidentType" Multiplicity="1" />
           <End Role="Log" Type="Self.Log" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="IncidentTyle">
+            <Principal Role="IncidentType">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Log">
-              <PropertyRef Name="IncidentTyleId" />
+              <PropertyRef Name="IncidentTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -101,7 +101,7 @@
         <EntityContainer Name="CasePortalModelStoreContainer">
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="IncidentTyle" EntityType="Self.IncidentTyle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IncidentType" EntityType="Self.IncidentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Media" EntityType="Self.Media" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Document__LogId__1FCDBCEB" Association="Self.FK__Document__LogId__1FCDBCEB">
@@ -113,7 +113,7 @@
             <End Role="Log" EntitySet="Log" />
           </AssociationSet>
           <AssociationSet Name="FK__Log__IncidentTyl__1A14E395" Association="Self.FK__Log__IncidentTyl__1A14E395">
-            <End Role="IncidentTyle" EntitySet="IncidentTyle" />
+            <End Role="IncidentType" EntitySet="IncidentType" />
             <End Role="Log" EntitySet="Log" />
           </AssociationSet>
           <AssociationSet Name="FK__Media__LogId__1CF15040" Association="Self.FK__Media__LogId__1CF15040">
@@ -131,7 +131,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Logs" Relationship="Self.FK__Log__IncidentTyl__1920BF5C" FromRole="District" ToRole="Log" />
+          <NavigationProperty Name="Logs" Relationship="CasePortalModel.FK__Log__IncidentTyl__1920BF5C" FromRole="District" ToRole="Log" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -140,32 +140,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Path" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LogId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Log" Relationship="Self.FK__Document__LogId__1FCDBCEB" FromRole="Document" ToRole="Log" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="IncidentTyle">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Logs" Relationship="Self.FK__Log__IncidentTyl__1A14E395" FromRole="IncidentTyle" ToRole="Log" />
-        </EntityType>
-        <EntityType Name="Log">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NotificationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IncidentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DistrictId" Type="Int32" Nullable="false" />
-          <Property Name="IncidentTyleId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="District" Relationship="Self.FK__Log__IncidentTyl__1920BF5C" FromRole="Log" ToRole="District" />
-          <NavigationProperty Name="Documents" Relationship="Self.FK__Document__LogId__1FCDBCEB" FromRole="Log" ToRole="Document" />
-          <NavigationProperty Name="IncidentTyle" Relationship="Self.FK__Log__IncidentTyl__1A14E395" FromRole="Log" ToRole="IncidentTyle" />
-          <NavigationProperty Name="Media" Relationship="Self.FK__Media__LogId__1CF15040" FromRole="Log" ToRole="Media" />
-          <Property Name="CreateAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Log" Relationship="CasePortalModel.FK__Document__LogId__1FCDBCEB" FromRole="Document" ToRole="Log" />
         </EntityType>
         <EntityType Name="Medium">
           <Key>
@@ -175,12 +151,59 @@
           <Property Name="Path" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="LogId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Log" Relationship="Self.FK__Media__LogId__1CF15040" FromRole="Media" ToRole="Log" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Log" Relationship="CasePortalModel.FK__Media__LogId__1CF15040" FromRole="Medium" ToRole="Log" />
+        </EntityType>
+        <EntityContainer Name="CasePortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Districts" EntityType="Self.District" />
+          <EntitySet Name="Documents" EntityType="Self.Document" />
+          <EntitySet Name="Media" EntityType="Self.Medium" />
+          <EntitySet Name="IncidentTypes" EntityType="CasePortalModel.IncidentType" />
+          <EntitySet Name="Logs" EntityType="CasePortalModel.Log" />
+          <AssociationSet Name="FK__Log__IncidentTyl__1920BF5C" Association="CasePortalModel.FK__Log__IncidentTyl__1920BF5C">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Log" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Document__LogId__1FCDBCEB" Association="CasePortalModel.FK__Document__LogId__1FCDBCEB">
+            <End Role="Log" EntitySet="Logs" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Log__IncidentTyl__1A14E395" Association="CasePortalModel.FK__Log__IncidentTyl__1A14E395">
+            <End Role="IncidentType" EntitySet="IncidentTypes" />
+            <End Role="Log" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Media__LogId__1CF15040" Association="CasePortalModel.FK__Media__LogId__1CF15040">
+            <End Role="Log" EntitySet="Logs" />
+            <End Role="Medium" EntitySet="Media" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="IncidentType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Logs" Relationship="CasePortalModel.FK__Log__IncidentTyl__1A14E395" FromRole="IncidentType" ToRole="Log" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NotificationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IncidentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DistrictId" Type="Int32" Nullable="false" />
+          <Property Name="IncidentTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CreateAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="District" Relationship="CasePortalModel.FK__Log__IncidentTyl__1920BF5C" FromRole="Log" ToRole="District" />
+          <NavigationProperty Name="Documents" Relationship="CasePortalModel.FK__Document__LogId__1FCDBCEB" FromRole="Log" ToRole="Document" />
+          <NavigationProperty Name="IncidentType" Relationship="CasePortalModel.FK__Log__IncidentTyl__1A14E395" FromRole="Log" ToRole="IncidentType" />
+          <NavigationProperty Name="Media" Relationship="CasePortalModel.FK__Media__LogId__1CF15040" FromRole="Log" ToRole="Medium" />
         </EntityType>
         <Association Name="FK__Log__IncidentTyl__1920BF5C">
-          <End Role="District" Type="Self.District" Multiplicity="1" />
-          <End Role="Log" Type="Self.Log" Multiplicity="*" />
+          <End Type="CasePortalModel.District" Role="District" Multiplicity="1" />
+          <End Type="CasePortalModel.Log" Role="Log" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="District">
               <PropertyRef Name="Id" />
@@ -191,8 +214,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Document__LogId__1FCDBCEB">
-          <End Role="Log" Type="Self.Log" Multiplicity="1" />
-          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <End Type="CasePortalModel.Log" Role="Log" Multiplicity="1" />
+          <End Type="CasePortalModel.Document" Role="Document" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Log">
               <PropertyRef Name="Id" />
@@ -203,52 +226,29 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Log__IncidentTyl__1A14E395">
-          <End Role="IncidentTyle" Type="Self.IncidentTyle" Multiplicity="1" />
-          <End Role="Log" Type="Self.Log" Multiplicity="*" />
+          <End Type="CasePortalModel.IncidentType" Role="IncidentType" Multiplicity="1" />
+          <End Type="CasePortalModel.Log" Role="Log" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="IncidentTyle">
+            <Principal Role="IncidentType">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Log">
-              <PropertyRef Name="IncidentTyleId" />
+              <PropertyRef Name="IncidentTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Media__LogId__1CF15040">
-          <End Role="Log" Type="Self.Log" Multiplicity="1" />
-          <End Role="Media" Type="Self.Medium" Multiplicity="*" />
+          <End Type="CasePortalModel.Log" Role="Log" Multiplicity="1" />
+          <End Type="CasePortalModel.Medium" Role="Medium" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Log">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Media">
+            <Dependent Role="Medium">
               <PropertyRef Name="LogId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CasePortalEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Districts" EntityType="Self.District" />
-          <EntitySet Name="Documents" EntityType="Self.Document" />
-          <EntitySet Name="IncidentTyles" EntityType="Self.IncidentTyle" />
-          <EntitySet Name="Logs" EntityType="Self.Log" />
-          <EntitySet Name="Media" EntityType="Self.Medium" />
-          <AssociationSet Name="FK__Log__IncidentTyl__1920BF5C" Association="Self.FK__Log__IncidentTyl__1920BF5C">
-            <End Role="District" EntitySet="Districts" />
-            <End Role="Log" EntitySet="Logs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Document__LogId__1FCDBCEB" Association="Self.FK__Document__LogId__1FCDBCEB">
-            <End Role="Log" EntitySet="Logs" />
-            <End Role="Document" EntitySet="Documents" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Log__IncidentTyl__1A14E395" Association="Self.FK__Log__IncidentTyl__1A14E395">
-            <End Role="IncidentTyle" EntitySet="IncidentTyles" />
-            <End Role="Log" EntitySet="Logs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Media__LogId__1CF15040" Association="Self.FK__Media__LogId__1CF15040">
-            <End Role="Log" EntitySet="Logs" />
-            <End Role="Media" EntitySet="Media" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -273,27 +273,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IncidentTyles">
-            <EntityTypeMapping TypeName="CasePortalModel.IncidentTyle">
-              <MappingFragment StoreEntitySet="IncidentTyle">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Logs">
-            <EntityTypeMapping TypeName="CasePortalModel.Log">
-              <MappingFragment StoreEntitySet="Log">
-                <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="NotificationDate" ColumnName="NotificationDate" />
-                <ScalarProperty Name="IncidentDate" ColumnName="IncidentDate" />
-                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-                <ScalarProperty Name="IncidentTyleId" ColumnName="IncidentTyleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Media">
             <EntityTypeMapping TypeName="CasePortalModel.Medium">
               <MappingFragment StoreEntitySet="Media">
@@ -302,6 +281,27 @@
                 <ScalarProperty Name="Path" ColumnName="Path" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="LogId" ColumnName="LogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncidentTypes">
+            <EntityTypeMapping TypeName="CasePortalModel.IncidentType">
+              <MappingFragment StoreEntitySet="IncidentType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="CasePortalModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
+                <ScalarProperty Name="IncidentTypeId" ColumnName="IncidentTypeId" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="IncidentDate" ColumnName="IncidentDate" />
+                <ScalarProperty Name="NotificationDate" ColumnName="NotificationDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

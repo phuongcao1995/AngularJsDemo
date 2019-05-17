@@ -134,6 +134,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Controllers\DistrictController.cs" />
@@ -163,7 +164,7 @@
     <Compile Include="Models\Document.cs">
       <DependentUpon>CasePortalModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\IncidentTyle.cs">
+    <Compile Include="Models\IncidentType.cs">
       <DependentUpon>CasePortalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Log.cs">
@@ -184,6 +185,13 @@
     <Compile Include="ViewModel\MediaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Scripts\commonService.js" />
+    <Content Include="Areas\Admin\Scripts\controllers\HomeController.js" />
+    <Content Include="Areas\Admin\Scripts\controllers\LogDetailcontroller.js" />
+    <Content Include="Areas\Admin\Scripts\services\DistrictService.js" />
+    <Content Include="Areas\Admin\Scripts\services\HomeService.js" />
+    <Content Include="Areas\Admin\Scripts\services\IncidentTypeService.js" />
+    <Content Include="Content\adminStyle.css" />
     <Content Include="Content\lib\chart.js\Chart.bundle.js" />
     <Content Include="Content\lib\chart.js\Chart.bundle.min.js" />
     <Content Include="Content\lib\chart.js\Chart.js" />
@@ -206,6 +214,7 @@
     <Content Include="Content\lib\js\demo\datatables-demo.js" />
     <Content Include="Content\lib\js\sb-admin-2.js" />
     <Content Include="Content\lib\js\sb-admin-2.min.js" />
+    <Content Include="Content\lib\notify.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\style.css" />
@@ -249,8 +258,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\web.config" />

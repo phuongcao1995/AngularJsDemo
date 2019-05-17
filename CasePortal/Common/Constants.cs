@@ -18,4 +18,9 @@
         public const string MessageNoData = "No data to show";
         
     }
+    public enum StatusCodes
+    {
+         Success=1,
+         Error
+    }
 }

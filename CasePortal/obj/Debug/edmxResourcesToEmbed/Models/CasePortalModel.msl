@@ -19,27 +19,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="IncidentTyles">
-      <EntityTypeMapping TypeName="CasePortalModel.IncidentTyle">
-        <MappingFragment StoreEntitySet="IncidentTyle">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Logs">
-      <EntityTypeMapping TypeName="CasePortalModel.Log">
-        <MappingFragment StoreEntitySet="Log">
-          <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="NotificationDate" ColumnName="NotificationDate" />
-          <ScalarProperty Name="IncidentDate" ColumnName="IncidentDate" />
-          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-          <ScalarProperty Name="IncidentTyleId" ColumnName="IncidentTyleId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Media">
       <EntityTypeMapping TypeName="CasePortalModel.Medium">
         <MappingFragment StoreEntitySet="Media">
@@ -48,6 +27,27 @@
           <ScalarProperty Name="Path" ColumnName="Path" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="LogId" ColumnName="LogId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IncidentTypes">
+      <EntityTypeMapping TypeName="CasePortalModel.IncidentType">
+        <MappingFragment StoreEntitySet="IncidentType">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="CasePortalModel.Log">
+        <MappingFragment StoreEntitySet="Log">
+          <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
+          <ScalarProperty Name="IncidentTypeId" ColumnName="IncidentTypeId" />
+          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+          <ScalarProperty Name="IncidentDate" ColumnName="IncidentDate" />
+          <ScalarProperty Name="NotificationDate" ColumnName="NotificationDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

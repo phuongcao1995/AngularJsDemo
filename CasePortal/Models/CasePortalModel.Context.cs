@@ -27,8 +27,8 @@ namespace CasePortal.Models
     
         public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
-        public virtual DbSet<IncidentTyle> IncidentTyles { get; set; }
-        public virtual DbSet<Log> Logs { get; set; }
         public virtual DbSet<Medium> Media { get; set; }
+        public virtual DbSet<IncidentType> IncidentTypes { get; set; }
+        public virtual DbSet<Log> Logs { get; set; }
     }
 }
