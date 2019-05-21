@@ -3,6 +3,9 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@{
+    var userLogin = (CasePortal.Models.User)Session["user"];
+}
 @model CasePortal.ViewModel.LogViewModel
 @using CasePortal.Common
 <div id="content" ng-controller="HomeController">
@@ -151,7 +154,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">@userLogin.Email</span>
                     <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                 </a>
                 <!-- Dropdown - User Information -->
@@ -169,7 +172,7 @@
                         Activity Log
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                    <a class="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                         Logout
                     </a>
@@ -184,9 +187,12 @@
         <h1 class="h3 mb-2 text-gray-800">Log List</h1>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
-            <div class="row">
-                <button class="btn btn-primary btn-add-new" data-toggle="modal" data-target="#addLog"><i class="fas fa-plus"></i> @Constants.AddNew</button>
-            </div>
+            @if (UserRoles.Check(Permission.SuperAdmin_Admin, userLogin))
+            {
+                <div class="row">
+                    <button class="btn btn-primary btn-add-new" data-toggle="modal" data-target="#addLog"><i class="fas fa-plus"></i> @Constants.AddNew</button>
+                </div>
+            }
             <div class="show-length">
                 <label for="show-number">@Constants.Show</label>
                 <select id="show-number" name="show-number" ng-model="itemsPerPage">
@@ -223,9 +229,12 @@
                                     @Html.DisplayNameFor(model => model.DistrictName)
                                     <span ng-show="sortKey=='DistrictName'" ng-class="{'fa fa-angle-down':reverse,'fa fa-angle-up':!reverse}"></span>
                                 </th>
-                                <th>
-                                    Option
-                                </th>
+                                @if (UserRoles.Check(Permission.SuperAdmin_Admin, userLogin))
+                                {
+                                    <th>
+                                        Option
+                                    </th>
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -235,14 +244,18 @@
                                 <td>{{log.NotificationDate | date : "MM/dd/yyyy h:mm a"}}</td>
                                 <td>{{log.IncidentDate | date : "MM/dd/yyyy"}}</td>
                                 <td>{{log.DistrictName}}</td>
-                                <td>
-                                    <a class="btn btn-primary icon-option" data-toggle="modal" data-target="#updateLog" ng-click="OpenModalUpdate(log)">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a class="btn btn-danger icon-option" data-toggle="modal" data-target="#deleteLog" ng-click="OpenModalDelete(log)">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </a>
-                                </td>
+                                @if (UserRoles.Check(Permission.SuperAdmin_Admin, userLogin))
+                                {
+                                    <td>
+                                        <a class="btn btn-primary icon-option" data-toggle="modal" data-target="#updateLog" ng-click="OpenModalUpdate(log)">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-danger icon-option" data-toggle="modal" data-target="#deleteLog" ng-click="OpenModalDelete(log)">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                }
+
                             </tr>
                         </tbody>
                     </table>
@@ -258,7 +271,7 @@
     <div class="modal fade" id="addLog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form name="form" ng-submit="AddLog(log,'#addLog')">
+                <form name="form" method="post" ng-submit="AddLog(log,'#addLog')">
                     <div class="modal-header">
                         <h4 class="modal-title">@Constants.AddNewLog</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -289,7 +302,7 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="district">@Html.DisplayNameFor(model => model.DistrictName)</label>
-                                <select id="district" class="form-control" ng-required="true" ng-model="log.DistrictId" @*ng-options="x.Name for x in listDistrict"*@>
+                                <select id="district" class="form-control" ng-required="true" ng-model="log.DistrictId">
                                     <option value="{{District.Id}}" ng-repeat="District in listDistrict">{{District.Name}}</option>
                                 </select>
                             </div>
@@ -322,7 +335,7 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="district">@Html.DisplayNameFor(model => model.IncidentTypeName)</label>
-                                <select id="district" name="district" class="form-control" ng-model="log.IncidentTypeId" @*ng-options="x.Name for x in listIncidentType"*@ ng-required="true">
+                                <select id="district" name="district" class="form-control" ng-model="log.IncidentTypeId" ng-required="true">
                                     <option ng-value="{{IncidentType.Id}}" ng-repeat="IncidentType in listIncidentType">{{IncidentType.Name}}</option>
                                 </select>
                             </div>
@@ -337,7 +350,7 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="district">@Html.DisplayNameFor(model => model.DistrictName)</label>
-                                <select id="district" class="form-control" ng-required="true" ng-model="log.DistrictId" @*ng-options="x.Name for x in listDistrict"*@>
+                                <select id="district" class="form-control" ng-required="true" ng-model="log.DistrictId">
                                     <option ng-value="{{District.Id}}" ng-repeat="District in listDistrict">{{District.Name}}</option>
                                 </select>
                             </div>
@@ -362,7 +375,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <p> @String.Format(Constants.MessageDelete,"log") <strong>{{log.Name}}</strong> ?</p>
+                                <p> @String.Format(Constants.MessageDelete, "log") <strong>{{log.Name}}</strong> ?</p>
                             </div>
                         </div>
                     </div>

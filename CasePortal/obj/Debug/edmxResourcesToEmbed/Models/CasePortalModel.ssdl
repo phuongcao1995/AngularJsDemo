@@ -45,6 +45,29 @@
     <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="LogId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <Association Name="FK__Document__LogId__1FCDBCEB">
     <End Role="Log" Type="Self.Log" Multiplicity="1" />
     <End Role="Document" Type="Self.Document" Multiplicity="*" />
@@ -93,12 +116,39 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__User_Role__RoleI__17036CC0">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User_Role__UserI__160F4887">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="CasePortalModelStoreContainer">
     <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="IncidentType" EntityType="Self.IncidentType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Media" EntityType="Self.Media" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Document__LogId__1FCDBCEB" Association="Self.FK__Document__LogId__1FCDBCEB">
       <End Role="Log" EntitySet="Log" />
       <End Role="Document" EntitySet="Document" />
@@ -114,6 +164,14 @@
     <AssociationSet Name="FK__Media__LogId__1CF15040" Association="Self.FK__Media__LogId__1CF15040">
       <End Role="Log" EntitySet="Log" />
       <End Role="Media" EntitySet="Media" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User_Role__RoleI__17036CC0" Association="Self.FK__User_Role__RoleI__17036CC0">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User_Role__UserI__160F4887" Association="Self.FK__User_Role__UserI__160F4887">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserRole" EntitySet="UserRole" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

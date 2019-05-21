@@ -65,6 +65,8 @@
         };
 
         $scope.OpenModalDelete = function (log) {
+            log.NotificationDate = new Date(log.NotificationDate);
+            log.IncidentDate = new Date(log.IncidentDate);
             $scope.log = log;
         };
 

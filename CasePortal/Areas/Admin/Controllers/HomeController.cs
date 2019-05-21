@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CasePortal.Authorize;
 using CasePortal.Common;
 using CasePortal.Models;
 using CasePortal.Repositories;
@@ -8,14 +9,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
-
 namespace CasePortal.Areas.Admin.Controllers
 {
+    [Auth(Permission = Permission.SuperAdmin_Admin_Editor)]
     public class HomeController : BaseController
     {
         private readonly HomeRepository homeRepository = new HomeRepository();
 
-        // GET: Admin/Home
         public ActionResult Index()
         {
             return View();
@@ -28,6 +28,7 @@ namespace CasePortal.Areas.Admin.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        [Auth(Permission = Permission.SuperAdmin_Admin)]
         [HttpPost]
         public JsonResult AddLog(Log log)
         {
@@ -50,6 +51,7 @@ namespace CasePortal.Areas.Admin.Controllers
             }
         }
 
+        [Auth(Permission = Permission.SuperAdmin_Admin)]
         [HttpPost]
         public JsonResult UpdateLog(Log log)
         {
@@ -72,6 +74,7 @@ namespace CasePortal.Areas.Admin.Controllers
             }
         }
 
+        [Auth(Permission = Permission.SuperAdmin_Admin)]
         [HttpPost]
         public JsonResult DeleteLog(Log log)
         {

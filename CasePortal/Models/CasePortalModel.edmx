@@ -50,6 +50,29 @@
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="LogId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK__Document__LogId__1FCDBCEB">
           <End Role="Log" Type="Self.Log" Multiplicity="1" />
           <End Role="Document" Type="Self.Document" Multiplicity="*" />
@@ -98,12 +121,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__User_Role__RoleI__17036CC0">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User_Role__UserI__160F4887">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CasePortalModelStoreContainer">
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IncidentType" EntityType="Self.IncidentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Media" EntityType="Self.Media" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Document__LogId__1FCDBCEB" Association="Self.FK__Document__LogId__1FCDBCEB">
             <End Role="Log" EntitySet="Log" />
             <End Role="Document" EntitySet="Document" />
@@ -120,29 +170,19 @@
             <End Role="Log" EntitySet="Log" />
             <End Role="Media" EntitySet="Media" />
           </AssociationSet>
+          <AssociationSet Name="FK__User_Role__RoleI__17036CC0" Association="Self.FK__User_Role__RoleI__17036CC0">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User_Role__UserI__160F4887" Association="Self.FK__User_Role__UserI__160F4887">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CasePortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="District">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Logs" Relationship="CasePortalModel.FK__Log__IncidentTyl__1920BF5C" FromRole="District" ToRole="Log" />
-        </EntityType>
-        <EntityType Name="Document">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Path" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LogId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Log" Relationship="CasePortalModel.FK__Document__LogId__1FCDBCEB" FromRole="Document" ToRole="Log" />
-        </EntityType>
         <EntityType Name="Medium">
           <Key>
             <PropertyRef Name="Id" />
@@ -155,11 +195,13 @@
           <NavigationProperty Name="Log" Relationship="CasePortalModel.FK__Media__LogId__1CF15040" FromRole="Medium" ToRole="Log" />
         </EntityType>
         <EntityContainer Name="CasePortalEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Districts" EntityType="Self.District" />
-          <EntitySet Name="Documents" EntityType="Self.Document" />
           <EntitySet Name="Media" EntityType="Self.Medium" />
+          <EntitySet Name="Districts" EntityType="CasePortalModel.District" />
+          <EntitySet Name="Documents" EntityType="CasePortalModel.Document" />
           <EntitySet Name="IncidentTypes" EntityType="CasePortalModel.IncidentType" />
           <EntitySet Name="Logs" EntityType="CasePortalModel.Log" />
+          <EntitySet Name="Roles" EntityType="CasePortalModel.Role" />
+          <EntitySet Name="Users" EntityType="CasePortalModel.User" />
           <AssociationSet Name="FK__Log__IncidentTyl__1920BF5C" Association="CasePortalModel.FK__Log__IncidentTyl__1920BF5C">
             <End Role="District" EntitySet="Districts" />
             <End Role="Log" EntitySet="Logs" />
@@ -176,7 +218,29 @@
             <End Role="Log" EntitySet="Logs" />
             <End Role="Medium" EntitySet="Media" />
           </AssociationSet>
+          <AssociationSet Name="UserRole" Association="CasePortalModel.UserRole">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Logs" Relationship="CasePortalModel.FK__Log__IncidentTyl__1920BF5C" FromRole="District" ToRole="Log" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LogId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Log" Relationship="CasePortalModel.FK__Document__LogId__1FCDBCEB" FromRole="Document" ToRole="Log" />
+        </EntityType>
         <EntityType Name="IncidentType">
           <Key>
             <PropertyRef Name="Id" />
@@ -200,6 +264,23 @@
           <NavigationProperty Name="Documents" Relationship="CasePortalModel.FK__Document__LogId__1FCDBCEB" FromRole="Log" ToRole="Document" />
           <NavigationProperty Name="IncidentType" Relationship="CasePortalModel.FK__Log__IncidentTyl__1A14E395" FromRole="Log" ToRole="IncidentType" />
           <NavigationProperty Name="Media" Relationship="CasePortalModel.FK__Media__LogId__1CF15040" FromRole="Log" ToRole="Medium" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="CasePortalModel.UserRole" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Roles" Relationship="CasePortalModel.UserRole" FromRole="User" ToRole="Role" />
         </EntityType>
         <Association Name="FK__Log__IncidentTyl__1920BF5C">
           <End Type="CasePortalModel.District" Role="District" Multiplicity="1" />
@@ -249,30 +330,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="UserRole">
+          <End Type="CasePortalModel.Role" Role="Role" Multiplicity="*" />
+          <End Type="CasePortalModel.User" Role="User" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CasePortalModelStoreContainer" CdmEntityContainer="CasePortalEntities">
-          <EntitySetMapping Name="Districts">
-            <EntityTypeMapping TypeName="CasePortalModel.District">
-              <MappingFragment StoreEntitySet="District">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Documents">
-            <EntityTypeMapping TypeName="CasePortalModel.Document">
-              <MappingFragment StoreEntitySet="Document">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Path" ColumnName="Path" />
-                <ScalarProperty Name="LogId" ColumnName="LogId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Media">
             <EntityTypeMapping TypeName="CasePortalModel.Medium">
               <MappingFragment StoreEntitySet="Media">
@@ -281,6 +348,24 @@
                 <ScalarProperty Name="Path" ColumnName="Path" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="LogId" ColumnName="LogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="CasePortalModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="CasePortalModel.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -305,6 +390,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="CasePortalModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CasePortalModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserRole" TypeName="CasePortalModel.UserRole" StoreEntitySet="UserRole">
+            <EndProperty Name="User">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="Role">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

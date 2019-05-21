@@ -25,10 +25,12 @@ namespace CasePortal.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Medium> Media { get; set; }
         public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
-        public virtual DbSet<Medium> Media { get; set; }
         public virtual DbSet<IncidentType> IncidentTypes { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

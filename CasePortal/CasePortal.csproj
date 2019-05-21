@@ -134,8 +134,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Authorize\AuthAttribute .cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Controllers\DistrictController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -173,7 +175,14 @@
     <Compile Include="Models\Medium.cs">
       <DependentUpon>CasePortalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>CasePortalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>CasePortalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\AutoMapperConfig.cs" />
     <Compile Include="Repositories\DistrictRepository.cs" />
     <Compile Include="Repositories\HomeRepository.cs" />
@@ -186,8 +195,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Scripts\commonService.js" />
+    <Content Include="Areas\Admin\Scripts\controllers\AccountController.js" />
     <Content Include="Areas\Admin\Scripts\controllers\HomeController.js" />
     <Content Include="Areas\Admin\Scripts\controllers\LogDetailcontroller.js" />
+    <Content Include="Areas\Admin\Scripts\services\AccountService.js" />
     <Content Include="Areas\Admin\Scripts\services\DistrictService.js" />
     <Content Include="Areas\Admin\Scripts\services\HomeService.js" />
     <Content Include="Areas\Admin\Scripts\services\IncidentTypeService.js" />
@@ -267,6 +278,7 @@
     <None Include=".bin\grunt.cmd" />
     <None Include=".bin\node.cmd" />
     <None Include=".bin\npm.cmd" />
+    <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Home\_PartialSearch.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
