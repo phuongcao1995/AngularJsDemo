@@ -4,7 +4,7 @@
     app.factory('homeService', ['$http', '$q', function ($http, $q) {
         var service = {
             GetAllLog: GetAllLog,
-            //GetLog: GetLog,
+            GetLog: GetLog,
             //GetLogById: GetLogById,
             //GetMediasByLogId: GetMediasByLogId,
             //GetDocumentsByLogId: GetDocumentsByLogId,
@@ -23,26 +23,25 @@
             return $def.promise;
         }
 
-        //function GetLog(keyword, notificationDateStart, notificationDateEnd, incidentDateStart, incidentDateEnd, incidentTypeIds, districtId) {
-        //    var $def = $q.defer();
-        //    $http.get('/Home/GetLog', {
-        //        params: {
-        //            keyword: keyword,
-        //            notificationDateStart: notificationDateStart,
-        //            notificationDateEnd: notificationDateEnd,
-        //            incidentDateStart: incidentDateStart,
-        //            incidentDateEnd: incidentDateEnd,
-        //            incidentTypeIds: incidentTypeIds,
-        //            districtId: districtId,
-
-        //        }
-        //    }).then(function (response) {
-        //        $def.resolve(response.data);
-        //    }, function () {
-        //        $def.reject('Error getting roles');
-        //    });
-        //    return $def.promise;
-        //}
+        function GetLog(keyword, notificationDateStart, notificationDateEnd, incidentDateStart, incidentDateEnd, incidentTypeIds, districtId) {
+            var $def = $q.defer();
+            $http.get('/Admin/Home/GetLog', {
+                params: {
+                    keyword: keyword,
+                    notificationDateStart: notificationDateStart,
+                    notificationDateEnd: notificationDateEnd,
+                    incidentDateStart: incidentDateStart,
+                    incidentDateEnd: incidentDateEnd,
+                    incidentTypeIds: incidentTypeIds,
+                    districtId: districtId,
+                }
+            }).then(function (response) {
+                $def.resolve(response.data);
+            }, function () {
+                $def.reject('Error getting roles');
+            });
+            return $def.promise;
+        }
 
         function AddLog(log) {
             var $def = $q.defer();

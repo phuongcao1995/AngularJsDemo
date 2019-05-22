@@ -35,7 +35,6 @@ namespace CasePortal.Controllers
 
         public ActionResult Detail(int? id)
         {
-
             if (id == null || id == 0 || homeRepository.GetLogById(id.Value) == null)
             {
                 return HttpNotFound();

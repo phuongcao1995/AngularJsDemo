@@ -1,15 +1,15 @@
 ﻿(function () {
     var app = angular.module('App', ['angularUtils.directives.dirPagination']);
     app.controller('HomeController', ['$scope', 'commonService', 'homeService', 'incidentTypeService', 'districtService', function ($scope, commonService, homeService, incidentTypeService, districtService) {
+        incidentTypeService.GetAllIncidentType().then(ListIncidentType);
         init();
         function init() {
             commonService.StartLoading();
             homeService.GetAllLog().then(ListLog).finally(commonService.EndLoading);
-            // $scope.listIncidentTypeSelected = [];
-            incidentTypeService.GetAllIncidentType().then(ListIncidentType);
+            $scope.listIncidentTypeSelected = [];
             districtService.GetAllDistrict().then(ListDistrict);
             $scope.itemsPerPage = $("#show-number option:first").val();
-            //$scope.district = null;
+            $scope.district = null;
             $scope.sort = function (keyname) {
                 $scope.listLog.forEach(function (data) {
                     data.IncidentDate = new Date(data.IncidentDate);
@@ -87,30 +87,31 @@
                 $(m).modal("hide");
             });
         };
-        //$scope.search = function () {
-        //    commonService.StartLoading();
-        //    var keyword = $scope.keyword;
-        //    var notificationDateStart = $scope.notificationDateStart;
-        //    var notificationDateEnd = $scope.notificationDateEnd;
-        //    var incidentDateStart = $scope.incidentDateStart;
-        //    var incidentDateEnd = $scope.incidentDateEnd;
-        //    var listIncidentTypeSelected = $scope.listIncidentTypeSelected;
-        //    var districtId = $scope.district != null ? $scope.district.Id : null;
-        //    homeService.GetLog(keyword, notificationDateStart, notificationDateEnd, incidentDateStart, incidentDateEnd, listIncidentTypeSelected, districtId).then(ListLog).finally(commonService.EndLoading);
+        $scope.search = function () {
+            commonService.StartLoading();
+            console.log($scope.IncidentType);
+            var keyword = $scope.keyword;
+            var notificationDateStart = $scope.notificationDateStart;
+            var notificationDateEnd = $scope.notificationDateEnd;
+            var incidentDateStart = $scope.incidentDateStart;
+            var incidentDateEnd = $scope.incidentDateEnd;
+            var IncidentType = $scope.IncidentType;
+            var districtId = $scope.district != null ? $scope.district.Id : null;
+            homeService.GetLog(keyword, notificationDateStart, notificationDateEnd, incidentDateStart, incidentDateEnd, IncidentType, districtId).then(ListLog).finally(commonService.EndLoading);
+        };
 
-        //};
-
-        //$scope.reset = function () {
-        //    commonService.StartLoading();
-        //    $scope.keyword = null;
-        //    $scope.notificationDateStart = "";
-        //    $scope.notificationDateEnd = "";
-        //    $scope.incidentDateStart = "";
-        //    $scope.incidentDateEnd = "";
-        //    $scope.listIncidentTypeSelected = [];
-        //    $scope.district = null;
-        //    homeService.GetAllLog().then(ListLog).finally(commonService.EndLoading);
-        //};
+        $scope.reset = function () {
+            commonService.StartLoading();
+            $scope.keyword = null;
+            $scope.notificationDateStart = "";
+            $scope.notificationDateEnd = "";
+            $scope.incidentDateStart = "";
+            $scope.incidentDateEnd = "";
+            $scope.IncidentType = null;
+            $(".filter-option-inner-inner").text("");
+            $scope.district = null;
+            homeService.GetAllLog().then(ListLog).finally(commonService.EndLoading);
+        };
 
     }]);
 })();

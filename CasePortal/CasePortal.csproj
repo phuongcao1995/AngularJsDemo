@@ -137,6 +137,7 @@
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Authorize\AuthAttribute .cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Controllers\DistrictController.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="ViewModel\IncidentTyleViewModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
     <Compile Include="ViewModel\MediaViewModel.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Scripts\commonService.js" />
@@ -279,6 +281,8 @@
     <None Include=".bin\node.cmd" />
     <None Include=".bin\npm.cmd" />
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Navbar.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Home\_PartialSearch.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
