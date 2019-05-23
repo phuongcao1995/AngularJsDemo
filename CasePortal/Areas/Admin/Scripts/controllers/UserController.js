@@ -1,30 +1,19 @@
 ﻿(function () {
-    var app = angular.module('App', ['angularUtils.directives.dirPagination']);
-    app.controller('HomeController', ['$scope', 'commonService', 'homeService', 'incidentTypeService', 'districtService', function ($scope, commonService, homeService, incidentTypeService, districtService) {
-        incidentTypeService.GetAllIncidentType().then(ListIncidentType);
-
+    var app = angular.module('App');
+    app.controller('UserController', ['$scope', 'commonService', 'userService', 'incidentTypeService', 'districtService', function ($scope, commonService, userService, incidentTypeService, districtService) {
         init();
         function init() {
             commonService.StartLoading();
-            homeService.GetAllLog().then(ListLog).finally(commonService.EndLoading);
-            $scope.listIncidentTypeSelected = [];
-            districtService.GetAllDistrict().then(ListDistrict);
+            userService.GetAllUser().then(ListUser).finally(commonService.EndLoading);
             $scope.itemsPerPage = $("#show-number option:first").val();
-            $scope.district = null;
             $scope.sort = function (keyname) {
-                $scope.listLog.forEach(function (data) {
-                    data.IncidentDate = new Date(data.IncidentDate);
-                });
-                $scope.listLog.forEach(function (data) {
-                    data.NotificationDate = new Date(data.NotificationDate);
-                });
                 $scope.sortKey = keyname;   //set the sortKey to the param passed
                 $scope.reverse = !$scope.reverse; //if true make it false and vice versa
             };
         }
 
-        function ListLog(data) {
-            $scope.listLog = data;
+        function ListUser(data) {
+            $scope.listUser = data;
         }
 
         function ListIncidentType(data) {

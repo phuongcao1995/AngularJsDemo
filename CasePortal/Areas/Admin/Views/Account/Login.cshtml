@@ -19,7 +19,6 @@
     <link href="~/Content/lib/css/sb-admin-2.min.css" rel="stylesheet" />
 </head>
 <body class="bg-gradient-primary" ng-app="App">
-
     <div class="container" ng-controller="AccountController">
         <div ng-class="loading==true?'loader' :' '"></div>
         <!-- Outer Row -->
@@ -36,6 +35,9 @@
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <form name="form" ng-submit="Login(user)">
+                                        <div ng-show="!AccountValid" class="alert alert-danger">
+                                            Email or Password incorrect.
+                                        </div>
                                         <div class="form-group">
                                             <input type="email" name="email" ng-model="user.Email" autofocus ng-required="true" maxlength="50" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                                             <code ng-show="form.email.$error.required && !form.email.$pristine" class="help-block">
@@ -52,13 +54,11 @@
                                                 @String.Format(Constants.MessageRequired, "Password")
                                             </code>
 
-                                            <code ng-show="form.password.$error.minlength && !form.password.$pristine" class="help-block">
+                                            <code ng-show="form.password.$error.minlength && !form.password.$pristine" class=" help-block">
                                                 Password is too short.
                                             </code>
                                         </div>
-                                        <code ng-show="!AccountValid" class="help-block">
-                                            Email or Password incorrect.
-                                        </code>
+
 
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -66,9 +66,10 @@
                                                 <label class="custom-control-label" for="customCheck">Remember Me</label>
                                             </div>
                                         </div>
-                                        <button href="#" id="btnLogin" type="submit" ng-disabled="form.$invalid "   class="btn btn-primary btn-user btn-block">
+                                        <button href="#" id="btnLogin" type="submit" ng-disabled="form.$invalid||dataLoading" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
+                                        <img ng-if="dataLoading" style="margin:10px auto;display:block" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                                         <hr>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
@@ -82,7 +83,7 @@
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                        <a class="small" href="/Admin/Account/Register">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>
@@ -96,6 +97,8 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="//code.angularjs.org/1.4.0/angular-route.js"></script>
+    <script src="//code.angularjs.org/1.4.0/angular-cookies.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="~/Content/lib/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->

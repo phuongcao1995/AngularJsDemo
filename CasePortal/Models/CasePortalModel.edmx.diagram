@@ -15,6 +15,8 @@
         <AssociationConnector Association="CasePortalModel.FK__Document__LogId__1FCDBCEB" />
         <AssociationConnector Association="CasePortalModel.FK__Log__IncidentTyl__1A14E395" />
         <AssociationConnector Association="CasePortalModel.UserRole" />
+        <EntityTypeShape EntityType="CasePortalModel.Image" Width="1.5" PointX="2.75" PointY="8.5" />
+        <AssociationConnector Association="CasePortalModel.FK_Users_Image" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

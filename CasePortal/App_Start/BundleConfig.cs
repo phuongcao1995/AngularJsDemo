@@ -27,13 +27,15 @@ namespace CasePortal
                         "~/Scripts/services/IncidentTypeService.js",
                         "~/Scripts/services/DistrictService.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/admin/angularjs").Include(                  
+            bundles.Add(new ScriptBundle("~/bundles/admin/angularjs").Include(
                       "~/Areas/Admin/Scripts/controllers/HomeController.js",
                       "~/Areas/Admin/Scripts/controllers/LogDetailcontroller.js",
-                      "~/Areas/Admin/Scripts/commonService.js",    
+                      "~/Areas/Admin/Scripts/controllers/UserController.js",
+                      "~/Areas/Admin/Scripts/commonService.js",
                       "~/Areas/Admin/Scripts/services/HomeService.js",
                       "~/Areas/Admin/Scripts/services/IncidentTypeService.js",
-                      "~/Areas/Admin/Scripts/services/DistrictService.js"));
+                      "~/Areas/Admin/Scripts/services/DistrictService.js",
+                       "~/Areas/Admin/Scripts/services/UserService.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/AccountAdmin/angularjs").Include(
                  "~/Areas/Admin/Scripts/controllers/AccountController.js",

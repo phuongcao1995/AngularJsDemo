@@ -132,19 +132,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr dir-paginate="log in listLog |orderBy:sortKey:reverse| itemsPerPage:itemsPerPage" ng-show="listLog.length>0">
-                                <td> {{log.Name}}</td>
-                                <td>{{log.IncidentTypeName}}</td>
-                                <td>{{log.NotificationDate | date : "MM/dd/yyyy h:mm a"}}</td>
-                                <td>{{log.IncidentDate | date : "MM/dd/yyyy"}}</td>
-                                <td>{{log.DistrictName}}</td>
+                            <tr dir-paginate="item in listLog |orderBy:sortKey:reverse| itemsPerPage:itemsPerPage" ng-show="listLog.length>0">
+                                <td> {{item.Name}}</td>
+                                <td>{{item.IncidentTypeName}}</td>
+                                <td>{{item.NotificationDate | date : "MM/dd/yyyy h:mm a"}}</td>
+                                <td>{{item.IncidentDate | date : "MM/dd/yyyy"}}</td>
+                                <td>{{item.DistrictName}}</td>
                                 @if (UserRoles.Check(Permission.SuperAdmin_Admin, userLogin))
                                 {
                                     <td>
-                                        <a class="btn btn-primary icon-option" data-toggle="modal" data-target="#updateLog" ng-click="OpenModalUpdate(log)">
+                                        <a class="btn btn-primary icon-option" data-toggle="modal" data-target="#updateLog" ng-click="OpenModalUpdate(item)">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-danger icon-option" data-toggle="modal" data-target="#deleteLog" ng-click="OpenModalDelete(log)">
+                                        <a class="btn btn-danger icon-option" data-toggle="modal" data-target="#deleteLog" ng-click="OpenModalDelete(item)">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </td>

@@ -21,6 +21,13 @@
           <Property Name="Path" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="LogId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="IncidentType">
           <Key>
             <PropertyRef Name="Id" />
@@ -71,7 +78,11 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="15" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="ImageId" Type="int" />
         </EntityType>
         <Association Name="FK__Document__LogId__1FCDBCEB">
           <End Role="Log" Type="Self.Log" Multiplicity="1" />
@@ -145,9 +156,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Users_Image">
+          <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CasePortalModelStoreContainer">
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IncidentType" EntityType="Self.IncidentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Media" EntityType="Self.Media" Schema="dbo" store:Type="Tables" />
@@ -177,6 +201,10 @@
           <AssociationSet Name="FK__User_Role__UserI__160F4887" Association="Self.FK__User_Role__UserI__160F4887">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Image" Association="Self.FK_Users_Image">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -220,6 +248,11 @@
           </AssociationSet>
           <AssociationSet Name="UserRole" Association="CasePortalModel.UserRole">
             <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Images" EntityType="CasePortalModel.Image" />
+          <AssociationSet Name="FK_Users_Image" Association="CasePortalModel.FK_Users_Image">
+            <End Role="Image" EntitySet="Images" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
@@ -279,8 +312,13 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Roles" Relationship="CasePortalModel.UserRole" FromRole="User" ToRole="Role" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="ImageId" Type="Int32" />
+          <NavigationProperty Name="Image" Relationship="CasePortalModel.FK_Users_Image" FromRole="User" ToRole="Image" />
         </EntityType>
         <Association Name="FK__Log__IncidentTyl__1920BF5C">
           <End Type="CasePortalModel.District" Role="District" Multiplicity="1" />
@@ -333,6 +371,26 @@
         <Association Name="UserRole">
           <End Type="CasePortalModel.Role" Role="Role" Multiplicity="*" />
           <End Type="CasePortalModel.User" Role="User" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Path" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="CasePortalModel.FK_Users_Image" FromRole="Image" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Users_Image">
+          <End Type="CasePortalModel.Image" Role="Image" Multiplicity="0..1" />
+          <End Type="CasePortalModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ImageId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -401,6 +459,10 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="CasePortalModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -415,6 +477,14 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Images">
+            <EntityTypeMapping TypeName="CasePortalModel.Image">
+              <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

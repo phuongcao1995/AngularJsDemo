@@ -43,5 +43,10 @@ namespace CasePortal.Areas.Admin.Controllers
             return RedirectToAction("Login");
         }
 
+        public ActionResult Register()
+        {
+            return View();
+        }
+
     }
 }

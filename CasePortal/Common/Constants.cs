@@ -39,6 +39,12 @@ namespace CasePortal.Common
         Error
     }
 
+    public enum Status
+    {
+        Deleted = 0,
+        Active,
+
+    }
     public static class ActionUser
     {
         public const string Add = "added";

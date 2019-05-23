@@ -12,24 +12,18 @@ namespace CasePortal.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Image
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Image()
         {
-            this.Roles = new HashSet<Role>();
+            this.Users = new HashSet<User>();
         }
     
         public int Id { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public int Status { get; set; }
-        public Nullable<int> ImageId { get; set; }
+        public string Path { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Role> Roles { get; set; }
-        public virtual Image Image { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

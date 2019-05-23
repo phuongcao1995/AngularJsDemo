@@ -1,1 +1,284 @@
 ﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@{
+    var userLogin = (CasePortal.Models.User)Session["user"];
+}
+@model CasePortal.ViewModel.UserViewModel
+@using CasePortal.Common
+<div id="content" ng-controller="UserController">
+    <!-- Topbar -->
+    @Html.Partial("~/Areas/Admin/Views/Shared/_Navbar.cshtml")
+    <!-- End of Topbar -->
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">User List</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            @if (UserRoles.Check(Permission.SuperAdmin_Admin, userLogin))
+            {
+                <div class="row">
+                    <button class="btn btn-primary btn-add-new" data-toggle="modal" data-target="#addUser"><i class="fas fa-plus"></i> @Constants.AddNew</button>
+                </div>
+            }
+
+            <div class="row">
+                <div class="show-length col-md-8">
+                    <label for="show-number">@Constants.Show</label>
+                    <select id="show-number" name="show-number" ng-model="itemsPerPage">
+                        @foreach (var item in Constants.ShowNumbers)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                        <option value="{{listUser.length}}">@Constants.All</option>
+                    </select>
+                    <label for="district">@Constants.Entries</label>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-secondary btn-icon-split collapSearch" data-toggle="collapse" data-target="#search"><i class="fas fa-search"></i> @Constants.ToggleSearchForm</button>
+                </div>
+            </div>
+            @*<div class="search">
+                <form id="search" class="collapse">
+                    <div class="row area-search">
+                        <div class="form-group col-xl-3 col-lg-6">
+                            <strong>@Constants.Search  </strong>
+                            <input type="search" id="search" name="search" placeholder="search" class="form-control" ng-model="keyword">
+                        </div>
+                        <div class="form-group col-xl-3 col-lg-6">
+                            <strong for="district">@Html.DisplayNameFor(model => model.DistrictName)</strong>
+                            <select id="district" class="form-control" ng-model="district" ng-options="x.Name for x  in listDistrict"></select>
+                        </div>
+                        <div class="form-group col-xl-3 col-lg-6">
+                            <div class="form-group group-datetime">
+                                <strong class="notification-date">Notification Date start</strong>
+                                <div class="input-group">
+                                    <input type="date" id="datepicker1" class="form-control" ng-model="notificationDateStart">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-xl-3 col-lg-6">
+                            <div class="form-group group-datetime">
+                                <strong class="notification-date">Notification Date End</strong>
+                                <div class="input-group">
+                                    <input type="date" id="datepicker1" class="form-control" ng-model="notificationDateEnd">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-xl-3 col-lg-6">
+                            <div class="form-group group-datetime">
+                                <strong class="notification-date">Incident Date start</strong>
+                                <div class="input-group">
+                                    <input type="date" id="datepicker1" class="form-control" ng-model="incidentDateStart">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-xl-3 col-lg-6">
+                            <div class="form-group group-datetime">
+                                <strong class="notification-date">Incident Date End</strong>
+                                <div class="input-group">
+                                    <input type="date" id="datepicker1" class="form-control" ng-model="incidentDateEnd">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-xl-3 col-lg-6">
+                            <strong class="">@Html.DisplayNameFor(model => model.IncidentTypeName) </strong>
+                            <select class="form-control selectpicker" multiple data-live-search="true" ng-model="IncidentType">
+                                <option ng-value="incidentType.Id" ng-repeat="incidentType in listIncidentType" ng-click="">{{incidentType.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="btn-group row">
+                        <button type="submit" class="btn btn-primary" ng-click="search()">@Constants.Search</button>
+                        <button type="reset" class="btn btn-light" ng-click="reset()">@Constants.Reset</button>
+                    </div>
+                </form>
+            </div>*@
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ImagePath)
+                                </th>
+                                <th class="sort" ng-click="sort('Email')">
+                                    @Html.DisplayNameFor(model => model.Email)
+                                    <span ng-show="sortKey=='Email'" ng-class="{'fa fa-angle-down':reverse,'fa fa-angle-up':!reverse}"></span>
+                                </th>
+                                <th class="sort" ng-click="sort('IncidentTyleName')">
+                                    @Html.DisplayNameFor(model => model.Phone)
+                                    <span ng-show="sortKey=='IncidentTyleName'" ng-class="{'fa fa-angle-down':reverse,'fa fa-angle-up':!reverse}"></span>
+                                </th>
+                                <th class="sort" ng-click="sort('NotificationDate')">
+                                    @Html.DisplayNameFor(model => model.Address)
+                                    <span ng-show="sortKey=='NotificationDate'" ng-class="{'fa fa-angle-down':reverse,'fa fa-angle-up':!reverse}"></span>
+                                </th>
+                                <th class="sort" ng-click="sort('Status')">
+                                    @Html.DisplayNameFor(model => model.Status)
+                                    <span ng-show="sortKey=='Status'" ng-class="{'fa fa-angle-down':reverse,'fa fa-angle-up':!reverse}"></span>
+                                </th>
+                                @if (UserRoles.Check(Permission.SuperAdmin_Admin, userLogin))
+                                {
+                                    <th>
+                                        Option
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="item in listUser |orderBy:sortKey:reverse| itemsPerPage:itemsPerPage" ng-show="listUser.length>0">
+                                <td><img src="{{item.ImagePath}}" alt="{{item.Email}}" /></td>
+                                <td> {{item.Email}}</td>
+                                <td>{{item.Phone}}</td>
+                                <td>{{item.Address}}</td>
+                                <td>{{item.Status}}</td>
+                                @if (UserRoles.Check(Permission.SuperAdmin_Admin, userLogin))
+                                {
+                                    <td>
+                                        <a class="btn btn-primary icon-option" data-toggle="modal" data-target="#updateLog" ng-click="OpenModalUpdate(item)">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-danger icon-option" data-toggle="modal" data-target="#deleteLog" ng-click="OpenModalDelete(item)">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                }
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="listLog.length==0">
+                        <h6 class="no-data">@Constants.MessageNoData</h6>
+                    </div>
+                </div>
+                <dir-pagination-controls class="pagination" max-size="5" direction-links="true" boundary-links="true">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addLog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form name="form" method="post" ng-submit="AddLog(log,'#addLog')">
+                    <div class="modal-header">
+                        <h4 class="modal-title">@Constants.AddNewLog</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>@Html.DisplayNameFor(model => model.Email)</label>
+                                <input type="text" name="name" class="form-control" ng-model="log.Name" ng-required="true" maxlength="100" />
+                                <code ng-show="form.name.$invalid && !form.name.$pristine" class="help-block">
+                                    @String.Format(Constants.MessageRequired, Html.DisplayNameFor(model => model.Email))
+                                </code>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="district">@Html.DisplayNameFor(model => model.Password)</label>
+                                <select id="district" name="district" class="form-control" ng-model="log.IncidentTypeId" ng-required="true">
+                                    <option value="{{IncidentType.Id}}" ng-repeat="IncidentType in listIncidentType">{{IncidentType.Name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@Html.DisplayNameFor(model => model.Phone)</label>
+                                <input type="datetime-local" class="form-control" ng-model="log.NotificationDate" ng-required="true" />
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label>@Html.DisplayNameFor(model => model.Address)</label>
+                                <input type="date" class="form-control" ng-model="log.IncidentDate" ng-required="true" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="district">@Html.DisplayNameFor(model => model.Status)</label>
+                                <select id="district" class="form-control" ng-required="true" ng-model="log.DistrictId">
+                                    <option value="{{District.Id}}" ng-repeat="District in listDistrict">{{District.Name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">@Constants.Add</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@Constants.Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @*<div class="modal fade" id="updateLog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form name="formUpdate" ng-submit="UpdateLog(log,'#updateLog')">
+                    <div class="modal-header">
+                        <h4 class="modal-title">@Constants.UpdateLog</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>@Html.DisplayNameFor(model => model.Name)</label>
+                                <input type="text" name="name" class="form-control" ng-model="log.Name" ng-required="true" maxlength="100" />
+                                <code ng-show="formUpdate.name.$invalid && !formUpdate.name.$pristine" class="help-block">
+                                    @String.Format(Constants.MessageRequired, Html.DisplayNameFor(model => model.Name))
+                                </code>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="district">@Html.DisplayNameFor(model => model.IncidentTypeName)</label>
+                                <select id="district" name="district" class="form-control" ng-model="log.IncidentTypeId" ng-required="true">
+                                    <option ng-value="{{IncidentType.Id}}" ng-repeat="IncidentType in listIncidentType">{{IncidentType.Name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@Html.DisplayNameFor(model => model.NotificationDate)</label>
+                                <input type="datetime-local" class="form-control" ng-model="log.NotificationDate" ng-required="true" />
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label>@Html.DisplayNameFor(model => model.IncidentDate)</label>
+                                <input type="date" class="form-control" ng-model="log.IncidentDate" ng-required="true" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="district">@Html.DisplayNameFor(model => model.DistrictName)</label>
+                                <select id="district" class="form-control" ng-required="true" ng-model="log.DistrictId">
+                                    <option ng-value="{{District.Id}}" ng-repeat="District in listDistrict">{{District.Name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" ng-disabled="formUpdate.$invalid">@Constants.Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@Constants.Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>*@
+    <div class="modal fade" id="deleteLog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form name="formUpdate" ng-submit="DeleteLog(log,'#deleteLog')">
+                    <div class="modal-header">
+                        <h4 class="modal-title">@Constants.Delete</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <p> @String.Format(Constants.MessageDelete, "log") <strong>{{log.Name}}</strong> ?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">@Constants.Delete</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@Constants.Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

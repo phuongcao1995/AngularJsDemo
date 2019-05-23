@@ -17,6 +17,7 @@ namespace CasePortal.Repositories
 
                 cfg.CreateMap<Log, Log>().ForMember(dest => dest.IncidentTypeId, opt => opt.MapFrom(src => src.IncidentType.Id))
                .ForMember(dest => dest.DistrictId, opt => opt.MapFrom(src => src.District.Id));
+                cfg.CreateMap<User, UserViewModel>().ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => src.Image.Path));
                 cfg.CreateMap<Medium, MediaViewModel>();
                 cfg.CreateMap<Document, DocumentViewModel>();
             });

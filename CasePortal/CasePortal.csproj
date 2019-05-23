@@ -167,6 +167,9 @@
     <Compile Include="Models\Document.cs">
       <DependentUpon>CasePortalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Image.cs">
+      <DependentUpon>CasePortalModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IncidentType.cs">
       <DependentUpon>CasePortalModel.tt</DependentUpon>
     </Compile>
@@ -188,6 +191,7 @@
     <Compile Include="Repositories\DistrictRepository.cs" />
     <Compile Include="Repositories\HomeRepository.cs" />
     <Compile Include="Repositories\IncidentTypeRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="ViewModel\DistrictViewModel.cs" />
     <Compile Include="ViewModel\DocumentViewModel.cs" />
     <Compile Include="ViewModel\IncidentTyleViewModel.cs" />
@@ -196,14 +200,17 @@
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\script.sql" />
     <Content Include="Areas\Admin\Scripts\commonService.js" />
     <Content Include="Areas\Admin\Scripts\controllers\AccountController.js" />
     <Content Include="Areas\Admin\Scripts\controllers\HomeController.js" />
     <Content Include="Areas\Admin\Scripts\controllers\LogDetailcontroller.js" />
+    <Content Include="Areas\Admin\Scripts\controllers\UserController.js" />
     <Content Include="Areas\Admin\Scripts\services\AccountService.js" />
     <Content Include="Areas\Admin\Scripts\services\DistrictService.js" />
     <Content Include="Areas\Admin\Scripts\services\HomeService.js" />
     <Content Include="Areas\Admin\Scripts\services\IncidentTypeService.js" />
+    <Content Include="Areas\Admin\Scripts\services\UserService.js" />
     <Content Include="Content\adminStyle.css" />
     <Content Include="Content\lib\chart.js\Chart.bundle.js" />
     <Content Include="Content\lib\chart.js\Chart.bundle.min.js" />
@@ -269,9 +276,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
@@ -283,6 +288,8 @@
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Navbar.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Register.cshtml" />
+    <Content Include="App_Data\CasePortal.bak" />
     <None Include="packages.config" />
     <Content Include="Views\Home\_PartialSearch.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
