@@ -12,7 +12,7 @@ namespace CasePortal.Areas.Admin.Controllers
     [Auth(Permission = Permission.SuperAdmin_Admin_Editor)]
     public class UserController : Controller
     {
-        private readonly UserRepository userRepository = new UserRepository();
+        private readonly UserRepository _userRepository = new UserRepository();
         public ActionResult Index()
         {
             return View();
@@ -21,7 +21,7 @@ namespace CasePortal.Areas.Admin.Controllers
         [HttpGet]
         public JsonResult GetAllUser()
         {
-            var list = Mapper.Map<IEnumerable<UserViewModel>>(userRepository.GetAllUser()).ToList();
+            var list = Mapper.Map<IEnumerable<UserViewModel>>(_userRepository.GetAllUser()).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
     }

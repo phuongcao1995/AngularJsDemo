@@ -7,10 +7,6 @@ namespace CasePortal.Repositories
     public class DistrictRepository
     {
         CasePortalEntities db = new CasePortalEntities();
-        public DistrictRepository()
-        {
-
-        }
 
         public IEnumerable<District> GetAllDistrict()
         {

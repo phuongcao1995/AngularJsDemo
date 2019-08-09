@@ -6,15 +6,11 @@ namespace CasePortal.Repositories
 {
     public class IncidentTypeRepository
     {
-        CasePortalEntities db = new CasePortalEntities();
-        public IncidentTypeRepository()
-        {
-
-        }
+        private readonly CasePortalEntities _db = new CasePortalEntities();
 
         public IEnumerable<IncidentType> GetAllIncidentTyle()
         {
-            return db.IncidentTypes.OrderBy(x => x.Name);
+            return _db.IncidentTypes.OrderBy(x => x.Name);
         }
     }
 }

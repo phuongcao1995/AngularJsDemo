@@ -9,12 +9,12 @@ namespace CasePortal.Controllers
 {
     public class DistrictController : Controller
     {
-        private readonly DistrictRepository districtRepository = new DistrictRepository();
+        private readonly DistrictRepository _districtRepository = new DistrictRepository();
 
         [HttpGet]
         public JsonResult GetAllDistrict()
         {
-            var list = Mapper.Map<IEnumerable<DistrictViewModel>>(districtRepository.GetAllDistrict()).ToList();
+            var list = Mapper.Map<IEnumerable<DistrictViewModel>>(_districtRepository.GetAllDistrict()).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
     }

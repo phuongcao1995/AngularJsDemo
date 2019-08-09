@@ -1,5 +1,5 @@
 ﻿(function () {
-    var app = angular.module("App", ['ngCookies']);
+    var app = window.angular.module("App", ['ngCookies']);
     app.controller('AccountController', ['$scope', 'commonService', 'accountService', function ($scope, commonService, accountService) {
         accountService.ClearCredentials();
         init();

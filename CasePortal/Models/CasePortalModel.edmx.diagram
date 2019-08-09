@@ -5,18 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4a71a481ac1d48d28f6f27298ac84e10" Name="Diagram1">
-        <EntityTypeShape EntityType="CasePortalModel.District" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="CasePortalModel.District" Width="1.5" PointX="0.75" PointY="1.75" />
         <EntityTypeShape EntityType="CasePortalModel.Document" Width="1.5" PointX="5.25" PointY="1.5" />
-        <EntityTypeShape EntityType="CasePortalModel.IncidentType" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="CasePortalModel.Image" Width="1.5" PointX="2.75" PointY="6.5" />
+        <EntityTypeShape EntityType="CasePortalModel.IncidentType" Width="1.5" PointX="0.75" PointY="5.75" />
         <EntityTypeShape EntityType="CasePortalModel.Log" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="CasePortalModel.Role" Width="1.5" PointX="2.75" PointY="6" />
-        <EntityTypeShape EntityType="CasePortalModel.User" Width="1.5" PointX="5" PointY="5.875" />
+        <EntityTypeShape EntityType="CasePortalModel.Role" Width="1.5" PointX="2.75" PointY="9.5" />
+        <EntityTypeShape EntityType="CasePortalModel.User" Width="1.5" PointX="5" PointY="6" />
         <AssociationConnector Association="CasePortalModel.FK__Log__IncidentTyl__1920BF5C" />
         <AssociationConnector Association="CasePortalModel.FK__Document__LogId__1FCDBCEB" />
+        <AssociationConnector Association="CasePortalModel.FK_Users_Image" />
         <AssociationConnector Association="CasePortalModel.FK__Log__IncidentTyl__1A14E395" />
         <AssociationConnector Association="CasePortalModel.UserRole" />
-        <EntityTypeShape EntityType="CasePortalModel.Image" Width="1.5" PointX="2.75" PointY="8.5" />
-        <AssociationConnector Association="CasePortalModel.FK_Users_Image" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

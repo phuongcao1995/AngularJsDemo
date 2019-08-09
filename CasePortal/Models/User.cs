@@ -28,8 +28,8 @@ namespace CasePortal.Models
         public int Status { get; set; }
         public Nullable<int> ImageId { get; set; }
     
+        public virtual Image Image { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Roles { get; set; }
-        public virtual Image Image { get; set; }
     }
 }

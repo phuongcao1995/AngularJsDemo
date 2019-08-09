@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CasePortal.Models;
+﻿using CasePortal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,22 +7,17 @@ namespace CasePortal.Repositories
 {
     public class HomeRepository
     {
-        CasePortalEntities db = new CasePortalEntities();
-        public HomeRepository()
-        {
-
-        }
+        private readonly CasePortalEntities _db = new CasePortalEntities();
 
         public IEnumerable<Log> GetAllLog()
         {
-            return db.Logs.OrderByDescending(x => x.Id);
+            return _db.Logs.OrderByDescending(x => x.Id);
         }
 
         public IEnumerable<Log> GetLog(string keyword, DateTime? notificationDateStart, DateTime? notificationDateEnd,
             DateTime? incidentDateStart, DateTime? incidentDateEnd, int[] incidentTypeIds, int? districtId)
         {
-            IQueryable<Log> query = null;
-            query = db.Logs.Where(x => true).OrderByDescending(x => x.Id);
+            IQueryable<Log> query = _db.Logs.Where(x => true).OrderByDescending(x => x.Id);
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 query = query.Where(x => x.Name.Contains(keyword));
@@ -65,17 +59,17 @@ namespace CasePortal.Repositories
 
         public Log GetLogById(int id)
         {
-            return db.Logs.Find(id);
+            return _db.Logs.Find(id);
         }
 
         public IEnumerable<Medium> GetMediasByLogId(int id)
         {
-            return db.Media.Where(x => x.LogId == id).OrderByDescending(x => x.Id);
+            return _db.Media.Where(x => x.LogId == id).OrderByDescending(x => x.Id);
         }
 
         public IEnumerable<Document> GetDocumentsByLogId(int id)
         {
-            return db.Documents.Where(x => x.LogId == id).OrderByDescending(x => x.Id);
+            return _db.Documents.Where(x => x.LogId == id).OrderByDescending(x => x.Id);
         }
 
         public bool AddLog(Log log)
@@ -83,14 +77,13 @@ namespace CasePortal.Repositories
             try
             {
                 log.CreateAt = DateTime.Now;
-                db.Logs.Add(log);
-                db.SaveChanges();
+                _db.Logs.Add(log);
+                _db.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
-                throw;
             }
         }
 
@@ -98,14 +91,13 @@ namespace CasePortal.Repositories
         {
             try
             {
-                db.Entry(log).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(log).State = System.Data.Entity.EntityState.Modified;
+                _db.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
-                throw;
             }
         }
 
@@ -113,14 +105,13 @@ namespace CasePortal.Repositories
         {
             try
             {
-                db.Entry(log).State = System.Data.Entity.EntityState.Deleted;
-                db.SaveChanges();
+                _db.Entry(log).State = System.Data.Entity.EntityState.Deleted;
+                _db.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
-                throw;
             }
         }
     }

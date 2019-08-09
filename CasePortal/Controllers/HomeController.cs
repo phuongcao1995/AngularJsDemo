@@ -10,7 +10,7 @@ namespace CasePortal.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly HomeRepository homeRepository = new HomeRepository();
+        private readonly HomeRepository _homeRepository = new HomeRepository();
 
         public ActionResult Index()
         {
@@ -20,7 +20,7 @@ namespace CasePortal.Controllers
         [HttpGet]
         public JsonResult GetAllLog()
         {
-            var list = Mapper.Map<IEnumerable<LogViewModel>>(homeRepository.GetAllLog()).ToList();
+            var list = Mapper.Map<IEnumerable<LogViewModel>>(_homeRepository.GetAllLog()).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
@@ -28,14 +28,14 @@ namespace CasePortal.Controllers
         public JsonResult GetLog(string keyword, DateTime? notificationDateStart, DateTime? notificationDateEnd,
             DateTime? incidentDateStart, DateTime? incidentDateEnd, int[] incidentTypeIds, int? districtId)
         {
-            var list = homeRepository.GetLog(keyword, notificationDateStart, notificationDateEnd,
+            var list = _homeRepository.GetLog(keyword, notificationDateStart, notificationDateEnd,
              incidentDateStart, incidentDateEnd, incidentTypeIds, districtId);
             return Json(Mapper.Map<IEnumerable<LogViewModel>>(list).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Detail(int? id)
         {
-            if (id == null || id == 0 || homeRepository.GetLogById(id.Value) == null)
+            if (id == null || id == 0 || _homeRepository.GetLogById(id.Value) == null)
             {
                 return HttpNotFound();
             }
@@ -46,21 +46,21 @@ namespace CasePortal.Controllers
         [HttpGet]
         public JsonResult GetLogById(int id)
         {
-            var log = Mapper.Map<LogViewModel>(homeRepository.GetLogById(id));
+            var log = Mapper.Map<LogViewModel>(_homeRepository.GetLogById(id));
             return Json(log, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public JsonResult GetMediasByLogId(int id)
         {
-            var medias = Mapper.Map<IEnumerable<MediaViewModel>>(homeRepository.GetMediasByLogId(id)).ToList();
+            var medias = Mapper.Map<IEnumerable<MediaViewModel>>(_homeRepository.GetMediasByLogId(id)).ToList();
             return Json(medias, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public JsonResult GetDocumentsByLogId(int id)
         {
-            var documents = Mapper.Map<IEnumerable<DocumentViewModel>>(homeRepository.GetDocumentsByLogId(id)).ToList();
+            var documents = Mapper.Map<IEnumerable<DocumentViewModel>>(_homeRepository.GetDocumentsByLogId(id)).ToList();
             return Json(documents, JsonRequestBehavior.AllowGet);
         }
     }

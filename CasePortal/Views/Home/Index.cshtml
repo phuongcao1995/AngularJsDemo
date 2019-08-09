@@ -1,6 +1,5 @@
 ﻿@model CasePortal.ViewModel.LogViewModel
 @using CasePortal.Common
-
 <div class="container" ng-controller="HomeController">
     <div class="row">
         @Html.Partial("~/Views/Home/_PartialSearch.cshtml")
@@ -20,7 +19,6 @@
                         </select>
                         <label for="district">@Constants.Entries</label>
                     </div>
-
                 </div>
             </div>
             <div class="row">
@@ -60,7 +58,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <dir-pagination-controls class="pagination"  max-size="5" direction-links="true" boundary-links="true">
+                    <dir-pagination-controls class="pagination" max-size="5" direction-links="true" boundary-links="true">
                 </div>
                 <div ng-show="listLog.length==0">
                     <h6 class="no-data">@Constants.MessageNoData</h6>

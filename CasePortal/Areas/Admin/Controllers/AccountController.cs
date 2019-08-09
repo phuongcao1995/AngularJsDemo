@@ -8,7 +8,7 @@ namespace CasePortal.Areas.Admin.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private readonly AccountRepository accountRepository = new AccountRepository();
+        private readonly AccountRepository _accountRepository = new AccountRepository();
 
         public ActionResult Login()
         {
@@ -22,7 +22,7 @@ namespace CasePortal.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Login(User user)
         {
-            var userLogin = accountRepository.Login(user);
+            var userLogin = _accountRepository.Login(user);
             if (userLogin != null)
             {
                 Session["user"] = userLogin;

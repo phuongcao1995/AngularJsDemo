@@ -5,15 +5,15 @@ namespace CasePortal.Repositories
 {
     public class AccountRepository
     {
-        CasePortalEntities db = new CasePortalEntities();
-        public AccountRepository()
-        {
+        private readonly CasePortalEntities _db = new CasePortalEntities();
+        //public AccountRepository()
+        //{
 
-        }
+        //}
 
         public User Login(User user)
         {
-            return db.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
+            return _db.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
         }
     }
 }

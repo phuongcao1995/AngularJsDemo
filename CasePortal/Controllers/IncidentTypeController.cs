@@ -9,12 +9,12 @@ namespace CasePortal.Controllers
 {
     public class IncidentTypeController : Controller
     {
-        private readonly IncidentTypeRepository incidentTypeRepository = new IncidentTypeRepository();
+        private readonly IncidentTypeRepository _incidentTypeRepository = new IncidentTypeRepository();
 
         [HttpGet]
         public JsonResult GetAllIncidentType()
         {
-            var list = Mapper.Map<IEnumerable<IncidentTyleViewModel>>(incidentTypeRepository.GetAllIncidentTyle()).ToList();
+            var list = Mapper.Map<IEnumerable<IncidentTyleViewModel>>(_incidentTypeRepository.GetAllIncidentTyle()).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 

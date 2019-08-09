@@ -30,6 +30,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="CasePortalModel.Image">
+        <MappingFragment StoreEntitySet="Image">
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="IncidentTypes">
       <EntityTypeMapping TypeName="CasePortalModel.IncidentType">
         <MappingFragment StoreEntitySet="IncidentType">
@@ -80,13 +88,5 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="Images">
-      <EntityTypeMapping TypeName="CasePortalModel.Image">
-        <MappingFragment StoreEntitySet="Image">
-          <ScalarProperty Name="Path" ColumnName="Path" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

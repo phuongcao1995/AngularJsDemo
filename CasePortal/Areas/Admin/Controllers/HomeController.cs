@@ -14,7 +14,7 @@ namespace CasePortal.Areas.Admin.Controllers
     [Auth(Permission = Permission.SuperAdmin_Admin_Editor)]
     public class HomeController : BaseController
     {
-        private readonly HomeRepository homeRepository = new HomeRepository();
+        private readonly HomeRepository _homeRepository = new HomeRepository();
 
         public ActionResult Index()
         {
@@ -24,7 +24,7 @@ namespace CasePortal.Areas.Admin.Controllers
         [HttpGet]
         public JsonResult GetAllLog()
         {
-            var list = Mapper.Map<IEnumerable<LogViewModel>>(homeRepository.GetAllLog()).ToList();
+            var list = Mapper.Map<IEnumerable<LogViewModel>>(_homeRepository.GetAllLog()).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
@@ -32,7 +32,7 @@ namespace CasePortal.Areas.Admin.Controllers
         public JsonResult GetLog(string keyword, DateTime? notificationDateStart, DateTime? notificationDateEnd,
                 DateTime? incidentDateStart, DateTime? incidentDateEnd, int[] incidentTypeIds, int? districtId)
         {
-            var list = homeRepository.GetLog(keyword, notificationDateStart, notificationDateEnd,
+            var list = _homeRepository.GetLog(keyword, notificationDateStart, notificationDateEnd,
              incidentDateStart, incidentDateEnd, incidentTypeIds, districtId);
             return Json(Mapper.Map<IEnumerable<LogViewModel>>(list).ToList(), JsonRequestBehavior.AllowGet);
         }
@@ -41,7 +41,7 @@ namespace CasePortal.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult AddLog(Log log)
         {
-            var result = homeRepository.AddLog(log);
+            var result = _homeRepository.AddLog(log);
             if (result)
             {
                 return Json(new
@@ -63,7 +63,7 @@ namespace CasePortal.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult UpdateLog(Log log)
         {
-            var result = homeRepository.UpdateLog(log);
+            var result = _homeRepository.UpdateLog(log);
             if (result)
             {
                 return Json(new
@@ -85,7 +85,7 @@ namespace CasePortal.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult DeleteLog(Log log)
         {
-            var result = homeRepository.DeleteLog(log);
+            var result = _homeRepository.DeleteLog(log);
             if (result)
             {
                 return Json(new

@@ -63,16 +63,10 @@ namespace CasePortal.Common
         {
             var arrPermission = permissions.Split(',');
             var roles = user.Roles.Select(x => x.Name).ToArray();
-            if (arrPermission != null && arrPermission != null)
-            {
-                foreach (var permission in arrPermission)
-                {
-                    foreach (var role in roles)
-                    {
-                        if (permission == role) return true;
-                    }
-                }
-            }
+            var query = from permission in arrPermission
+                        join role in roles on permission equals role
+                        select new { role };
+            if (query.Any()) return true;
             return false;
         }
 

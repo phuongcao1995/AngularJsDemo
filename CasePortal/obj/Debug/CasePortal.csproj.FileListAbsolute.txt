@@ -247,3 +247,8 @@ C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\obj\Debug
 C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\obj\Debug\CasePortal.dll
 C:\Users\Drake\Desktop\new project\New folder\AngularJsDemo\CasePortal\obj\Debug\CasePortal.pdb
 D:\Demo Technical\AngularJsDemo\CasePortal\obj\Debug\CasePortal.csprojAssemblyReference.cache
+D:\Demo Technical\AngularJsDemo\CasePortal\bin\Microsoft.VisualStudio.Web.BrowserLink.12.0.dll
+D:\Demo Technical\AngularJsDemo\CasePortal\bin\EnvDTE.dll
+D:\Demo Technical\AngularJsDemo\CasePortal\bin\stdole.dll
+D:\Demo Technical\AngularJsDemo\CasePortal\bin\Microsoft.VisualStudio.Web.BrowserLink.12.0.xml
+D:\Demo Technical\AngularJsDemo\CasePortal\bin\Loremipsum.Permissions.dll
