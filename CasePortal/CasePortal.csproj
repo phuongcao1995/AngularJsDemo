@@ -304,6 +304,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Home\_PartialSearch.cshtml" />
+    <None Include="Properties\PublishProfiles\CasePortal20200604104448 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml">
       <SubType>Designer</SubType>
     </None>
